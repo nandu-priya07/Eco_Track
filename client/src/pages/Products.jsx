@@ -10,7 +10,7 @@ export default function Products() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch('/api/products')
       .then(r => r.json())
       .then(data => { setProducts(data); setLoading(false); })
       .catch(() => setLoading(false));

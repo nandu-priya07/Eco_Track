@@ -142,7 +142,7 @@ function ReviewsSection({ productId }) {
 
   const fetchReviews = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${productId}/reviews`);
+      const res = await fetch(`/api/products/${productId}/reviews`);
       const data = await res.json();
       setReviews(data);
     } catch { }
@@ -154,7 +154,7 @@ function ReviewsSection({ productId }) {
     if (form.rating === 0) { setError('Please select a star rating.'); return; }
     setSubmitting(true); setError('');
     try {
-      const res = await fetch(`http://localhost:5000/api/products/${productId}/reviews`, {
+      const res = await fetch(`/api/products/${productId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'x-user-id': user.id },
         body: JSON.stringify({ rating: form.rating, comment: form.comment, reviewerName: user.name }),
@@ -303,7 +303,7 @@ export default function ProductDetail() {
   const [cartMsg, setCartMsg] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch('/api/products')
       .then(r => r.json())
       .then(data => {
         const found = data.find(p => p.id === parseInt(id));

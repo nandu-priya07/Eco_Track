@@ -439,12 +439,16 @@ app.post('/api/products/:id/reviews', (req, res) => {
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-const PORT = 5000;
-app.listen(PORT, () => {
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`\n🌿 EcoTrack Server Ready!`);
     console.log(`📦 Products: ${products.length}`);
     console.log(`👥 Demo accounts:`);
     console.log(`   🏪 Merchant: merchant@demo.com / demo123`);
     console.log(`   🌿 Customer: customer@demo.com / demo123\n`);
-});
+  });
+}
+
+module.exports = app;

@@ -74,7 +74,7 @@ export default function Home() {
   const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch('/api/products')
       .then(r => r.json())
       .then(data => { setProducts(data.slice(0, 3)); setLoading(false); })
       .catch(() => { setLoading(false); });

@@ -105,7 +105,7 @@ export default function MerchantDashboard() {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/merchant/products', {
+      const res = await fetch('/api/merchant/products', {
         headers: { 'x-user-id': user?.id },
       });
       const data = await res.json();
@@ -136,7 +136,7 @@ export default function MerchantDashboard() {
     e.preventDefault();
     setFormLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/merchant/products', {
+      const res = await fetch('/api/merchant/products', {
         method: 'POST', headers: { 'Content-Type': 'application/json', 'x-user-id': user.id },
         body: JSON.stringify(parseForm()),
       });
@@ -152,7 +152,7 @@ export default function MerchantDashboard() {
     e.preventDefault();
     setFormLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/merchant/products/${editProduct.id}`, {
+      const res = await fetch(`/api/merchant/products/${editProduct.id}`, {
         method: 'PUT', headers: { 'Content-Type': 'application/json', 'x-user-id': user.id },
         body: JSON.stringify(parseForm()),
       });
@@ -166,7 +166,7 @@ export default function MerchantDashboard() {
 
   const handleDelete = async () => {
     try {
-      await fetch(`http://localhost:5000/api/merchant/products/${deleteId}`, {
+      await fetch(`/api/merchant/products/${deleteId}`, {
         method: 'DELETE', headers: { 'x-user-id': user.id },
       });
       await fetchProducts();
