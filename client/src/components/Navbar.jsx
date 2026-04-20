@@ -69,6 +69,7 @@ export default function Navbar() {
               >
                 {l.label}
               </Link>
+            ))}
             {/* Cart Icon */}
             <Link
               to="/checkout"

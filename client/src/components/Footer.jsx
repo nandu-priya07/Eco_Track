@@ -114,7 +114,7 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
+          </div>
 
           {/* Quick Links */}
           <div>

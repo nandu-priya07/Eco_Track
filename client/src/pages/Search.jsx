@@ -11,16 +11,6 @@ const ECO_TIPS = [
   { icon: '⚡', tip: 'Solar power banks reduce your device carbon footprint by up to 80%' },
 ];
 
-function StarRating({ value }) {
-  return (
-    <div style={{ display: 'flex', gap: 2 }}>
-      {[1, 2, 3, 4, 5].map(s => (
-        <span key={s} style={{ color: s <= value ? '#f59e0b' : 'var(--color-border)', fontSize: '0.85rem' }}>★</span>
-      ))}
-    </div>
-  );
-}
-
 export default function Search() {
   const [form, setForm] = useState({ name: '', email: '', category: '', location: '' });
   const [results, setResults] = useState([]);
@@ -103,12 +93,6 @@ export default function Search() {
           </span>
         </h1>
         <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '1.05rem', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
-          Answer a few quick questions and we'll match you with the most sustainable products tailored to
-            Personalised
-          </span>{' '}
-          Eco Picks
-        </h1>
-        <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '1.05rem', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
           Tell us a little about yourself and we'll match you with the perfect sustainable products for your lifestyle and location.
         </p>
 
@@ -124,6 +108,11 @@ export default function Search() {
               <span style={{ fontSize: '1rem', flexShrink: 0 }}>{icon}</span>
               <span>{tip}</span>
             </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 1.5rem', marginTop: '3rem' }}>
         {!submitted && (
           <div style={{
             background: 'rgba(var(--color-eco-card-rgb),0.5)',
@@ -147,180 +136,149 @@ export default function Search() {
                 </h2>
                 <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.85rem' }}>Quick questions to find your perfect sustainable products</p>
               </div>
-                    width: `${progress}%`,
-                  background: 'linear-gradient(90deg, #10b981, #34d399)',
-                  borderRadius: 99,
-                  transition: 'width 0.4s ease',
-                }} />
-              </div>
+            </div>
+
+            <div style={{ padding: '2rem' }}>
+              <form onSubmit={handleSubmit}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+
+                  {/* Name */}
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
+                      marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
+                      display: 'flex', alignItems: 'center', gap: '0.4rem',
+                    }}>
+                      🙂 Your Name
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        className="eco-input"
+                        name="name"
+                        placeholder="e.g. Alex Green"
+                        value={form.name}
+                        onChange={handleChange}
+                        onFocus={() => setActiveStep('name')}
+                        onBlur={() => setActiveStep(null)}
+                        style={{
+                          borderColor: activeStep === 'name' ? '#10b981' : form.name ? 'rgba(16,185,129,0.4)' : undefined,
+                        }}
+                      />
+                      {form.name && (
+                        <span style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#10b981', fontSize: '0.9rem' }}>✔</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
+                      marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
+                    }}>
+                      📧 Email Address
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        className="eco-input"
+                        name="email"
+                        type="email"
+                        placeholder="alex@example.com"
+                        value={form.email}
+                        onChange={handleChange}
+                        onFocus={() => setActiveStep('email')}
+                        onBlur={() => setActiveStep(null)}
+                        style={{
+                          borderColor: activeStep === 'email' ? '#10b981' : form.email ? 'rgba(16,185,129,0.4)' : undefined,
+                        }}
+                      />
+                      {form.email && (
+                        <span style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#10b981', fontSize: '0.9rem' }}>✔</span>
+                      )}
+                    </div>
+                    <p style={{ fontSize: '0.73rem', color: 'var(--color-border-light)', marginTop: '0.3rem' }}>We'll send your personalised recommendations here</p>
+                  </div>
+
+                  {/* Category */}
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
+                      marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
+                    }}>
+                      🛒 Product Category
+                    </label>
+                    <select
+                      className="eco-input"
+                      name="category"
+                      value={form.category}
+                      onChange={handleChange}
+                      onFocus={() => setActiveStep('category')}
+                      onBlur={() => setActiveStep(null)}
+                      style={{
+                        cursor: 'pointer',
+                        borderColor: activeStep === 'category' ? '#10b981' : form.category ? 'rgba(16,185,129,0.4)' : undefined,
+                      }}
+                    >
+                      <option value="">— Select a category —</option>
+                      {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                    </select>
+                  </div>
+
+                  {/* Location */}
+                  <div>
+                    <label style={{
+                      display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
+                      marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
+                    }}>
+                      📍 Your Location
+                    </label>
+                    <div style={{ position: 'relative' }}>
+                      <input
+                        className="eco-input"
+                        name="location"
+                        placeholder="e.g. London, UK"
+                        value={form.location}
+                        onChange={handleChange}
+                        onFocus={() => setActiveStep('location')}
+                        onBlur={() => setActiveStep(null)}
+                        style={{
+                          borderColor: activeStep === 'location' ? '#10b981' : form.location ? 'rgba(16,185,129,0.4)' : undefined,
+                        }}
+                      />
+                      {form.location && (
+                        <span style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#10b981', fontSize: '0.9rem' }}>✔</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {error && (
+                  <div style={{
+                    background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
+                    borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#f87171',
+                    fontSize: '0.9rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  }}>
+                    ⚠️ {error}
+                  </div>
+                )}
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                  <button
+                    className="btn-eco"
+                    type="submit"
+                    disabled={loading}
+                    style={{ fontSize: '1rem', padding: '0.85rem 2.25rem', opacity: loading ? 0.75 : 1, position: 'relative' }}
+                  >
+                    {loading ? 'Finding products...' : '🔎 Get My Recommendations'}
+                  </button>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--color-border-light)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    🔒 We never share your data
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-
-          <div style={{ padding: '2rem' }}>
-            <form onSubmit={handleSubmit}>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
-
-                {/* Name */}
-                <div>
-                  <label style={{
-                    display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
-                    marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
-                    display: 'flex', alignItems: 'center', gap: '0.4rem',
-                  }}>
-                    🙂 Your Name
-                  </label>
-                  <div style={{ position: 'relative' }}>
-                    <input
-                      className="eco-input"
-                      name="name"
-                      placeholder="e.g. Alex Green"
-                      value={form.name}
-                      onChange={handleChange}
-                      onFocus={() => setActiveStep('name')}
-                      onBlur={() => setActiveStep(null)}
-                      style={{
-                        borderColor: activeStep === 'name' ? '#10b981' : form.name ? 'rgba(16,185,129,0.4)' : undefined,
-                      }}
-                    />
-                    {form.name && (
-                      <span style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#10b981', fontSize: '0.9rem' }}>✔</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Email */}
-                <div>
-                  <label style={{
-                    display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
-                    marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
-                  }}>
-                    📧 Email Address
-                  </label>
-                  <div style={{ position: 'relative' }}>
-                    <input
-                      className="eco-input"
-                      name="email"
-                      type="email"
-                      placeholder="alex@example.com"
-                      value={form.email}
-                      onChange={handleChange}
-                      onFocus={() => setActiveStep('email')}
-                      onBlur={() => setActiveStep(null)}
-                      style={{
-                        borderColor: activeStep === 'email' ? '#10b981' : form.email ? 'rgba(16,185,129,0.4)' : undefined,
-                      }}
-                    />
-                    {form.email && (
-                      <span style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#10b981', fontSize: '0.9rem' }}>✔</span>
-                    )}
-                  </div>
-                  <p style={{ fontSize: '0.73rem', color: 'var(--color-border-light)', marginTop: '0.3rem' }}>We'll send your personalised recommendations here</p>
-                </div>
-
-                {/* Category */}
-                <div>
-                  <label style={{
-                    display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
-                    marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
-                  }}>
-                    🛒 Product Category
-                  </label>
-                  <select
-                    className="eco-input"
-                    name="category"
-                    value={form.category}
-                    onChange={handleChange}
-                    onFocus={() => setActiveStep('category')}
-                    onBlur={() => setActiveStep(null)}
-                    style={{
-                      cursor: 'pointer',
-                      borderColor: activeStep === 'category' ? '#10b981' : form.category ? 'rgba(16,185,129,0.4)' : undefined,
-                    }}
-                  >
-                    <option value="">— Select a category —</option>
-                    {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                  {/* Category chips */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginTop: '0.6rem' }}>
-                    {CATEGORIES.slice(0, 4).map(c => (
-                      <button
-                        type="button"
-                        key={c}
-                        onClick={() => setForm(f => ({ ...f, category: c }))}
-                        style={{
-                          background: form.category === c ? 'rgba(16,185,129,0.2)' : 'rgba(var(--color-eco-card-rgb),0.8)',
-                          border: `1px solid ${form.category === c ? '#10b981' : 'var(--color-border)'}`,
-                          borderRadius: '2rem', padding: '0.2rem 0.6rem',
-                          color: form.category === c ? '#34d399' : 'var(--color-text-muted-dark)',
-                          fontSize: '0.72rem', cursor: 'pointer', transition: 'all 0.2s',
-                        }}
-                      >
-                        {c}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Location */}
-                <div>
-                  <label style={{
-                    display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)',
-                    marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em',
-                  }}>
-                    📍 Your Location
-                  </label>
-                  <div style={{ position: 'relative' }}>
-                    <input
-                      className="eco-input"
-                      name="location"
-                      placeholder="e.g. London, UK"
-                      value={form.location}
-                      onChange={handleChange}
-                      onFocus={() => setActiveStep('location')}
-                      onBlur={() => setActiveStep(null)}
-                      style={{
-                        borderColor: activeStep === 'location' ? '#10b981' : form.location ? 'rgba(16,185,129,0.4)' : undefined,
-                      }}
-                    />
-                    {form.location && (
-                      <span style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#10b981', fontSize: '0.9rem' }}>✔</span>
-                    )}
-                  </div>
-                  <p style={{ fontSize: '0.73rem', color: 'var(--color-border-light)', marginTop: '0.3rem' }}>Helps us show locally available products</p>
-                </div>
-              </div>
-
-              {error && (
-                <div style={{
-                  background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)',
-                  borderRadius: '0.5rem', padding: '0.75rem 1rem', color: '#f87171',
-                  fontSize: '0.9rem', marginBottom: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem',
-                }}>
-                  ⚠️ {error}
-                </div>
-              )}
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
-                <button
-                  className="btn-eco"
-                  type="submit"
-                  disabled={loading}
-                  style={{ fontSize: '1rem', padding: '0.85rem 2.25rem', opacity: loading ? 0.75 : 1, position: 'relative' }}
-                >
-                  {loading ? (
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ width: 14, height: 14, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.8s linear infinite' }} />
-                      Finding products…
-                    </span>
-                  ) : '🔎 Get My Recommendations'}
-                </button>
-                <div style={{ fontSize: '0.82rem', color: 'var(--color-border-light)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  🔒 We never share your data
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
+        )}
 
         {/* Results */}
         {submitted && (
@@ -339,19 +297,16 @@ export default function Search() {
                 {form.name && (
                   <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.875rem' }}>
                     Personalised for <strong style={{ color: '#34d399' }}>{form.name}</strong>
-                    {form.location && <> in <strong style={{ color: '#34d399' }}>{form.location}</strong></>}
                   </p>
                 )}
               </div>
-              {results.length > 0 && (
-                <button
-                  onClick={() => { setSubmitted(false); setResults([]); }}
-                  className="btn-outline-eco"
-                  style={{ fontSize: '0.875rem', padding: '0.5rem 1.2rem' }}
-                >
-                  🔄 New Search
-                </button>
-              )}
+              <button
+                onClick={() => { setSubmitted(false); setResults([]); }}
+                className="btn-outline-eco"
+                style={{ fontSize: '0.875rem', padding: '0.5rem 1.2rem' }}
+              >
+                🔄 New Search
+              </button>
             </div>
 
             {/* Cards Grid */}
@@ -366,6 +321,7 @@ export default function Search() {
                     borderRadius: '1.25rem', overflow: 'hidden',
                     animation: `fadeInUp 0.5s ease-out ${i * 0.07}s both`,
                     display: 'flex', flexDirection: 'column',
+                    position: 'relative'
                   }}
                 >
                   <Link to={`/products/${p.id}`} style={{ textDecoration: 'none', flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -376,24 +332,17 @@ export default function Search() {
                         position: 'absolute', top: '0.75rem', right: '0.75rem',
                         background: p.score >= 90 ? '#10b981' : p.score >= 75 ? '#f59e0b' : '#ef4444',
                         borderRadius: '0.5rem', padding: '0.25rem 0.65rem',
-                        fontSize: '0.8rem', fontWeight: 700, color: '#fff',
+                        fontSize: '0.8rem', fontWeight: 700, color: '#fff', zIndex: 2
                       }}>
                         ♻ {p.score}/100
                       </div>
-                      {/* Category badge */}
+                      {/* Match Badge */}
                       <div style={{
                         position: 'absolute', top: '0.75rem', left: '0.75rem',
-                        background: 'rgba(var(--color-eco-bg-rgb),0.85)', borderRadius: '0.4rem',
-                        padding: '0.2rem 0.6rem', fontSize: '0.75rem', color: 'var(--color-text-muted)',
-                      }}>
-                        {p.category}
-                      </div>
-                      <div style={{
-                        position: 'absolute', top: '0.75rem', right: '0.75rem',
                         background: 'linear-gradient(135deg, #10b981, #059669)',
                         color: '#fff', borderRadius: '0.5rem', padding: '0.25rem 0.6rem',
                         fontSize: '0.7rem', fontWeight: 800, boxShadow: '0 4px 12px rgba(16,185,129,0.3)',
-                        display: 'flex', alignItems: 'center', gap: '0.2rem'
+                        display: 'flex', alignItems: 'center', gap: '0.2rem', zIndex: 2
                       }}>
                         ⭐ {p.score > 90 ? 'TOP MATCH' : 'GREAT MATCH'}
                       </div>
@@ -401,31 +350,21 @@ export default function Search() {
 
                     {/* Info */}
                     <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                      {/* Tags */}
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
-                        {p.tags.slice(0, 2).map(t => (
-                          <span key={t} style={{
-                            background: 'rgba(16,185,129,0.1)',
-                            border: '1px solid rgba(16,185,129,0.25)',
-                            borderRadius: '2rem', padding: '0.1rem 0.55rem',
-                            fontSize: '0.72rem', color: '#34d399',
-                          }}>
-                            {t}
-                          </span>
-                        ))}
+                        <span style={{
+                          background: 'rgba(16,185,129,0.1)',
+                          border: '1px solid rgba(16,185,129,0.25)',
+                          borderRadius: '2rem', padding: '0.1rem 0.55rem',
+                          fontSize: '0.72rem', color: '#34d399',
+                        }}>
+                          {p.category}
+                        </span>
                       </div>
 
                       <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem', fontSize: '1rem' }}>{p.name}</h3>
 
-                      {/* Features preview */}
-                      {p.features?.[0] && (
-                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-dark)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <span style={{ color: '#10b981' }}>✅</span> {p.features[0]}
-                        </p>
-                      )}
-
                       <div style={{ marginTop: 'auto' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                           <span style={{ fontWeight: 800, color: '#10b981', fontSize: '1.15rem' }}>₹{(p.price * 25).toFixed(2)}</span>
                         </div>
                       </div>
@@ -441,12 +380,8 @@ export default function Search() {
                         color: '#10b981', cursor: 'pointer', fontSize: '0.85rem',
                         fontWeight: 600, transition: 'all 0.2s',
                       }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.background = 'rgba(16,185,129,0.1)';
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.background = 'transparent';
-                        }}
+                        onMouseEnter={e => e.currentTarget.style.background = 'rgba(16,185,129,0.1)'}
+                        onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         ℹ️ Details
                       </button>
@@ -466,22 +401,20 @@ export default function Search() {
               ))}
             </div>
 
-            {/* Bottom CTA */}
-            {results.length > 0 && (
-              <div style={{
-                marginTop: '3rem', textAlign: 'center',
-                background: 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(5,150,105,0.05))',
-                border: '1px solid rgba(16,185,129,0.12)',
-                borderRadius: '1rem', padding: '2rem',
-              }}>
-                <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🌍</div>
-                <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Want Even More Sustainable Options?</h3>
-                <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>Browse our full catalogue of 500+ eco-certified products matched for your lifestyle</p>
-                <Link to="/products" className="btn-eco" style={{ textDecoration: 'none', display: 'inline-flex' }}>
-                  🛒 Browse All Products
-                </Link>
-              </div>
-            )}
+            {/* CTA */}
+            <div style={{
+              marginTop: '3rem', textAlign: 'center',
+              background: 'linear-gradient(135deg, rgba(16,185,129,0.08), rgba(5,150,105,0.05))',
+              border: '1px solid rgba(16,185,129,0.12)',
+              borderRadius: '1rem', padding: '2rem',
+            }}>
+              <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🌍</div>
+              <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Want Even More Sustainable Options?</h3>
+              <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>Browse our full catalogue of 500+ eco-certified products matched for your lifestyle</p>
+              <Link to="/products" className="btn-eco" style={{ textDecoration: 'none', display: 'inline-flex' }}>
+                🛒 Browse All Products
+              </Link>
+            </div>
           </div>
         )}
       </div>

@@ -21,7 +21,10 @@ export default function Products() {
   }, []);
 
   const filtered = products.filter(p => {
-    c
+    const matchCat = activeCategory === 'All' || p.category === activeCategory;
+    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) || p.tags.some(t => t.includes(search.toLowerCase()));
+    return matchCat && matchSearch;
+  });
 
   const handleAddToCart = (product) => {
     addToCart(product, 1);
@@ -31,17 +34,14 @@ export default function Products() {
 
   const handleBuyNow = (product) => {
     addToCart(product, 1);
-    navigate('/cart');
+    navigate('/checkout');
   };
 
   // Get top eco-rated products for recommendations
   const topRecommendations = products
     .filter(p => p.score >= 90)
     .sort((a, b) => b.score - a.score)
-    .slice(0, 3);onst matchCat = activeCategory === 'All' || p.category === activeCategory;
-    const matchSearch = p.name.toLowerCase().includes(search.toLowerCase()) || p.tags.some(t => t.includes(search.toLowerCase()));
-    return matchCat && matchSearch;
-  });
+    .slice(0, 3);
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '3rem 1.5rem' }}>
@@ -255,15 +255,6 @@ export default function Products() {
           to { transform: translateX(0); opacity: 1; }
         }
       `}</style>
-    </div>
-  );
-}
-              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🍃</div>
-              <p>No products found. Try a different filter.</p>
-            </div>
-          )}
-        </>
-      )}
     </div>
   );
 }
