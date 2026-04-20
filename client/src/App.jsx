@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { CartProvider } from './context/CartContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import EcoChat from './components/EcoChat';
@@ -12,6 +13,7 @@ import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import MerchantDashboard from './pages/MerchantDashboard';
+import Checkout from './pages/Checkout';
 
 function ProtectedMerchant({ children }) {
   const { user } = useAuth();
@@ -33,6 +35,7 @@ function AppRoutes() {
           <Route path="/gamification" element={<Gamification />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/checkout" element={<Checkout />} />
           {/* Register removed */}
           <Route
             path="/merchant/dashboard"
@@ -54,7 +57,9 @@ function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <AppRoutes />
+        <CartProvider>
+          <AppRoutes />
+        </CartProvider>
       </AuthProvider>
     </BrowserRouter>
   );

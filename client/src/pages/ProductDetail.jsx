@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCart } from '../context/CartContext';
 
 /* ─── Star Picker ─────────────────────────────── */
 function StarPicker({ value, onChange }) {
@@ -297,6 +298,7 @@ function ReviewsSection({ productId }) {
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [wishlist, setWishlist] = useState(false);
@@ -314,8 +316,14 @@ export default function ProductDetail() {
   }, [id]);
 
   const handleCart = () => {
+    addToCart(product, 1);
     setCartMsg('✅ Added to cart!');
     setTimeout(() => setCartMsg(''), 2500);
+  };
+
+  const handleBuyNow = () => {
+    addToCart(product, 1);
+    navigate('/checkout');
   };
 
   if (loading) return <div style={{ textAlign: 'center', color: '#10b981', padding: '5rem', fontSize: '1.2rem' }}>🌱 Loading…</div>;
@@ -427,21 +435,24 @@ export default function ProductDetail() {
                   border: '1px solid var(--color-border)',
                   background: wishlist ? 'rgba(239,68,68,0.1)' : 'var(--color-eco-card)',
                   color: wishlist ? '#ef4444' : 'var(--color-text-muted)',
-                  cursor: 'pointer', fontSize: '1.2rem', transition: 'all 0.2s',
+                  cursor: 'pointer', transition: 'all 0.2s', fontSize: '1.2rem',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}
               >
                 {wishlist ? '❤️' : '🤍'}
               </button>
             </div>
-            <button style={{
-              width: '100%', padding: '0.85rem', borderRadius: '0.5rem', border: 'none',
-              background: 'linear-gradient(135deg,#065f46,#047857)',
-              color: '#fff', fontWeight: 700, cursor: 'pointer', fontSize: '1rem',
-              transition: 'opacity 0.2s',
-            }}
+            <button
+              onClick={handleBuyNow}
+              style={{
+                width: '100%', padding: '0.85rem', borderRadius: '0.5rem', border: 'none',
+                background: 'linear-gradient(135deg,#065f46,#047857)',
+                color: '#fff', fontWeight: 700, cursor: 'pointer', fontSize: '1rem',
+                transition: 'opacity 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem'
+              }}
               onMouseEnter={e => e.target.style.opacity = '0.9'}
               onMouseLeave={e => e.target.style.opacity = '1'}>
-              ⚡ Buy Now
+              🚀 <span>Buy Now</span>
             </button>
           </div>
         </div>

@@ -62,7 +62,7 @@ const products = [
     category: "Kitchen",
     price: 45.00,
     score: 94,
-    image: "https://images.unsplash.com/photo-1622322300063-41bb7270e5b8?w=500&q=80",
+    image: "https://images.unsplash.com/photo-1591193520257-c030ea85da15?w=600&q=80",
     tags: ["compost", "zero-waste"],
     features: ["Odor filter", "Stainless steel interior"]
   }

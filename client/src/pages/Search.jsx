@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 const CATEGORIES = ['Kitchen', 'Electronics', 'Accessories', 'Bathroom', 'Zero Waste', 'Renewable Energy'];
 
@@ -27,9 +28,17 @@ export default function Search() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
   const [activeStep, setActiveStep] = useState(null);
+  const [cartMsg, setCartMsg] = useState('');
+  const { addToCart } = useCart();
 
   const handleChange = e => {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+  };
+
+  const handleAddToCart = p => {
+    addToCart(p, 1);
+    setCartMsg(`✅ Added ${p.name} to cart!`);
+    setTimeout(() => setCartMsg(''), 3000);
   };
 
   const handleSubmit = async e => {
@@ -52,11 +61,19 @@ export default function Search() {
     }
   };
 
-  const filledFields = Object.values(form).filter(Boolean).length;
-  const progress = (filledFields / 4) * 100;
-
   return (
     <div style={{ background: 'var(--color-eco-bg)', minHeight: '100vh' }}>
+
+      {/* Cart Notification */}
+      {cartMsg && (
+        <div style={{
+          position: 'fixed', bottom: '2rem', right: '2rem', zIndex: 1000,
+          background: '#10b981', color: '#fff', padding: '1rem 1.5rem',
+          borderRadius: '0.75rem', fontWeight: 600, animation: 'slideIn 0.3s ease',
+        }}>
+          {cartMsg}
+        </div>
+      )}
 
       {/* Hero Header */}
       <div style={{
@@ -82,6 +99,11 @@ export default function Search() {
             background: 'linear-gradient(135deg, #10b981, #34d399, #6ee7b7)',
             WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
           }}>
+            Perfect Eco Match
+          </span>
+        </h1>
+        <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '1.05rem', maxWidth: '520px', margin: '0 auto', lineHeight: 1.7 }}>
+          Answer a few quick questions and we'll match you with the most sustainable products tailored to
             Personalised
           </span>{' '}
           Eco Picks
@@ -102,44 +124,30 @@ export default function Search() {
               <span style={{ fontSize: '1rem', flexShrink: 0 }}>{icon}</span>
               <span>{tip}</span>
             </div>
-          ))}
-        </div>
-      </div>
-
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '3rem 1.5rem' }}>
-
-        {/* Form Card */}
-        <div style={{
-          background: 'rgba(var(--color-eco-card-rgb),0.5)',
-          backdropFilter: 'blur(12px)',
-          border: '1px solid rgba(51,65,85,0.6)',
-          borderRadius: '1.5rem',
-          overflow: 'hidden',
-          marginBottom: '3rem',
-          boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
-        }}>
-          {/* Form Header */}
+        {!submitted && (
           <div style={{
-            background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.06))',
-            borderBottom: '1px solid rgba(16,185,129,0.12)',
-            padding: '1.5rem 2rem',
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem',
+            background: 'rgba(var(--color-eco-card-rgb),0.5)',
+            backdropFilter: 'blur(12px)',
+            border: '1px solid rgba(51,65,85,0.6)',
+            borderRadius: '1.5rem',
+            overflow: 'hidden',
+            marginBottom: '3rem',
+            boxShadow: '0 25px 60px rgba(0,0,0,0.3)',
           }}>
-            <div>
-              <h2 style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '1.1rem', marginBottom: '0.2rem' }}>
-                📋 Your Preferences
-              </h2>
-              <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.85rem' }}>Fill in the details below to get matched products</p>
-            </div>
-            {/* Progress */}
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.78rem', color: '#34d399', marginBottom: '0.4rem', fontWeight: 600 }}>
-                {filledFields}/4 fields completed
+            {/* Form Header */}
+            <div style={{
+              background: 'linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.06))',
+              borderBottom: '1px solid rgba(16,185,129,0.12)',
+              padding: '1.5rem 2rem',
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem',
+            }}>
+              <div>
+                <h2 style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '1.1rem', marginBottom: '0.2rem' }}>
+                  📋 Tell Us About You
+                </h2>
+                <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.85rem' }}>Quick questions to find your perfect sustainable products</p>
               </div>
-              <div style={{ width: 160, height: 6, background: 'var(--color-eco-card)', borderRadius: 99, overflow: 'hidden' }}>
-                <div style={{
-                  height: '100%',
-                  width: `${progress}%`,
+                    width: `${progress}%`,
                   background: 'linear-gradient(90deg, #10b981, #34d399)',
                   borderRadius: 99,
                   transition: 'width 0.4s ease',
@@ -349,20 +357,18 @@ export default function Search() {
             {/* Cards Grid */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.5rem' }}>
               {results.map((p, i) => (
-                <Link
+                <div
                   key={p.id}
-                  to={`/products/${p.id}`}
-                  style={{ textDecoration: 'none' }}
+                  className="card-hover glass"
+                  style={{
+                    background: 'rgba(var(--color-eco-card-rgb),0.6)',
+                    border: '1px solid rgba(51,65,85,0.5)',
+                    borderRadius: '1.25rem', overflow: 'hidden',
+                    animation: `fadeInUp 0.5s ease-out ${i * 0.07}s both`,
+                    display: 'flex', flexDirection: 'column',
+                  }}
                 >
-                  <div
-                    className="card-hover"
-                    style={{
-                      background: 'rgba(var(--color-eco-card-rgb),0.6)',
-                      border: '1px solid rgba(51,65,85,0.5)',
-                      borderRadius: '1.25rem', overflow: 'hidden',
-                      animation: `fadeInUp 0.5s ease-out ${i * 0.07}s both`,
-                    }}
-                  >
+                  <Link to={`/products/${p.id}`} style={{ textDecoration: 'none', flex: 1, display: 'flex', flexDirection: 'column' }}>
                     <div style={{ position: 'relative', height: 210, overflow: 'hidden' }}>
                       <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       {/* Score badge */}
@@ -382,13 +388,22 @@ export default function Search() {
                       }}>
                         {p.category}
                       </div>
+                      <div style={{
+                        position: 'absolute', top: '0.75rem', right: '0.75rem',
+                        background: 'linear-gradient(135deg, #10b981, #059669)',
+                        color: '#fff', borderRadius: '0.5rem', padding: '0.25rem 0.6rem',
+                        fontSize: '0.7rem', fontWeight: 800, boxShadow: '0 4px 12px rgba(16,185,129,0.3)',
+                        display: 'flex', alignItems: 'center', gap: '0.2rem'
+                      }}>
+                        ⭐ {p.score > 90 ? 'TOP MATCH' : 'GREAT MATCH'}
+                      </div>
                     </div>
 
                     {/* Info */}
-                    <div style={{ padding: '1.25rem' }}>
+                    <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                       {/* Tags */}
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.75rem' }}>
-                        {p.tags.map(t => (
+                        {p.tags.slice(0, 2).map(t => (
                           <span key={t} style={{
                             background: 'rgba(16,185,129,0.1)',
                             border: '1px solid rgba(16,185,129,0.25)',
@@ -405,23 +420,49 @@ export default function Search() {
                       {/* Features preview */}
                       {p.features?.[0] && (
                         <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-dark)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <span style={{ color: '#10b981' }}>✔</span> {p.features[0]}
+                          <span style={{ color: '#10b981' }}>✅</span> {p.features[0]}
                         </p>
                       )}
 
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <span style={{ fontWeight: 800, color: '#10b981', fontSize: '1.15rem' }}>₹{(p.price * 25).toFixed(2)}</span>
-                        <span style={{
-                          background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)',
-                          borderRadius: '0.4rem', padding: '0.2rem 0.6rem',
-                          fontSize: '0.75rem', color: '#34d399',
-                        }}>
-                          View Details →
-                        </span>
+                      <div style={{ marginTop: 'auto' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                          <span style={{ fontWeight: 800, color: '#10b981', fontSize: '1.15rem' }}>₹{(p.price * 25).toFixed(2)}</span>
+                        </div>
                       </div>
                     </div>
+                  </Link>
+
+                  {/* Action Buttons */}
+                  <div style={{ padding: '0 1.25rem 1.25rem', display: 'flex', gap: '0.6rem' }}>
+                    <Link to={`/products/${p.id}`} style={{ flex: 1, textDecoration: 'none' }}>
+                      <button style={{
+                        width: '100%', padding: '0.5rem', borderRadius: '0.5rem',
+                        border: '1px solid #10b981', background: 'transparent',
+                        color: '#10b981', cursor: 'pointer', fontSize: '0.85rem',
+                        fontWeight: 600, transition: 'all 0.2s',
+                      }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.background = 'rgba(16,185,129,0.1)';
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.background = 'transparent';
+                        }}
+                      >
+                        ℹ️ Details
+                      </button>
+                    </Link>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleAddToCart(p);
+                      }}
+                      className="btn-eco"
+                      style={{ flex: 1, padding: '0.5rem', fontSize: '0.85rem' }}
+                    >
+                      🛒 Add
+                    </button>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
 
@@ -434,8 +475,8 @@ export default function Search() {
                 borderRadius: '1rem', padding: '2rem',
               }}>
                 <div style={{ fontSize: '2rem', marginBottom: '0.75rem' }}>🌍</div>
-                <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Want Even More Options?</h3>
-                <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>Browse our full catalogue of 500+ eco-certified products</p>
+                <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Want Even More Sustainable Options?</h3>
+                <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>Browse our full catalogue of 500+ eco-certified products matched for your lifestyle</p>
                 <Link to="/products" className="btn-eco" style={{ textDecoration: 'none', display: 'inline-flex' }}>
                   🛒 Browse All Products
                 </Link>
@@ -450,6 +491,10 @@ export default function Search() {
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideIn {
+          from { transform: translateX(400px); opacity: 0; }
+          to { transform: translateX(0); opacity: 1; }
         }
         option { background: var(--color-eco-card); color: var(--color-text-body); }
       `}</style>
