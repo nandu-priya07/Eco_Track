@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 const QUICK_LINKS = [
   { label: 'Home', to: '/' },
@@ -25,6 +26,17 @@ const MISSION_STATS = [
 ];
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [subMsg, setSubMsg] = useState('');
+
+  const handleNewsletter = e => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubMsg('🎉 You\'re subscribed! Check your inbox for eco tips.');
+    setEmail('');
+    setTimeout(() => setSubMsg(''), 5000);
+  };
+
   return (
     <footer style={{
       background: 'linear-gradient(180deg, #0a1628 0%, #060e1a 100%)',
@@ -113,6 +125,33 @@ export default function Footer() {
                   {icon}
                 </a>
               ))}
+            </div>
+
+            {/* Newsletter */}
+            <div style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: '0.75rem', padding: '1rem' }}>
+              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-body)', marginBottom: '0.5rem' }}>📬 Eco Newsletter</div>
+              <form onSubmit={handleNewsletter} style={{ display: 'flex', gap: '0.4rem' }}>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="your@email.com"
+                  style={{
+                    flex: 1, background: 'var(--color-eco-bg)', border: '1px solid var(--color-border)',
+                    borderRadius: '0.4rem', color: 'var(--color-text-body)', padding: '0.45rem 0.6rem',
+                    fontSize: '0.8rem', minWidth: 0,
+                  }}
+                />
+                <button type="submit" style={{
+                  background: 'linear-gradient(135deg, #10b981, #059669)',
+                  border: 'none', borderRadius: '0.4rem', color: '#fff',
+                  padding: '0.45rem 0.75rem', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600,
+                  whiteSpace: 'nowrap',
+                }}>
+{/* Removed */}
+                </button>
+              </form>
+              {subMsg && <div style={{ color: '#34d399', fontSize: '0.78rem', marginTop: '0.5rem' }}>{subMsg}</div>}
             </div>
           </div>
 

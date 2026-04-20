@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -16,11 +15,9 @@ export default function Navbar() {
   const [dropOpen, setDropOpen] = useState(false);
   const { pathname } = useLocation();
   const { user, logout } = useAuth();
-  const { cartCount } = useCart();
   const navigate = useNavigate();
   const [isLight, setIsLight] = useState(() => localStorage.getItem('theme') === 'light');
   const dropRef = useRef(null);
-  const totalItems = getTotalItems();
 
   useEffect(() => {
     document.body.className = isLight ? 'light-theme' : '';
@@ -70,32 +67,6 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
-            {/* Cart Icon */}
-            <Link
-              to="/checkout"
-              style={{
-                position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: 40, height: 40, borderRadius: '0.5rem', textDecoration: 'none',
-                background: 'rgba(16,185,129,0.1)', transition: 'all 0.2s', fontSize: '1.3rem',
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = 'rgba(16,185,129,0.2)'}
-              onMouseLeave={e => e.currentTarget.style.background = 'rgba(16,185,129,0.1)'}
-            >
-              🛒
-              {cartCount > 0 && (
-                <div style={{
-                  position: 'absolute', top: '-6px', right: '-6px',
-                  background: '#10b981', color: '#fff', width: 22, height: 22,
-                  borderRadius: '50%', display: 'flex', alignItems: 'center',
-                  justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800,
-                  border: '2px solid var(--color-eco-bg)',
-                }}>
-                  {cartCount}
-                </div>
-              )}
-            </Link>
-
-            {/* 
 
             {/* Theme Toggle */}
             <button
