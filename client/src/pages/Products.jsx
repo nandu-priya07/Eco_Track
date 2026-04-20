@@ -64,20 +64,20 @@ export default function Products() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.5rem' }}>
             {filtered.map(p => (
               <div key={p.id} className="card-hover glass" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
-                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      {p.category}
-                    </span>
-                     <span style={{
-                        background: p.score >= 90 ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.1)',
-                        color: p.score >= 90 ? '#10b981' : '#f59e0b',
-                        border: p.score >= 90 ? '1px solid rgba(16,185,129,0.2)' : '1px solid rgba(245,158,11,0.2)',
-                        padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 800
-                     }}>
-                        ♻ SCORE {p.score}
-                     </span>
+                <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
+                  <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <div style={{
+                    position: 'absolute', top: '0.75rem', right: '0.75rem',
+                    background: p.score >= 90 ? '#10b981' : '#f59e0b',
+                    borderRadius: '0.5rem', padding: '0.25rem 0.6rem', fontSize: '0.8rem', fontWeight: 700, color: '#fff',
+                  }}>
+                    ♻ {p.score}/100
                   </div>
+                  <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem', background: 'rgba(var(--color-eco-bg-rgb),0.8)', borderRadius: '0.5rem', padding: '0.25rem 0.6rem', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+                    {p.category}
+                  </div>
+                </div>
+                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column' }}>
                   <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
                     {p.tags.map(t => (
                       <span key={t} style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '1rem', padding: '0.15rem 0.6rem', fontSize: '0.75rem', color: '#34d399' }}>
