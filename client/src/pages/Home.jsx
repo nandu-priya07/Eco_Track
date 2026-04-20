@@ -373,28 +373,20 @@ export default function Home() {
                     borderRadius: '1.25rem', overflow: 'hidden', cursor: 'pointer',
                     animation: `fadeInUp 0.5s ease-out ${i * 0.1}s both`,
                   }}>
-                    <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
-                      <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} />
-                      {/* Score badge */}
-                      <div style={{
-                        position: 'absolute', top: '0.75rem', right: '0.75rem',
-                        background: p.score >= 95 ? '#059669' : '#10b981',
-                        borderRadius: '0.5rem', padding: '0.25rem 0.65rem',
-                        fontSize: '0.8rem', fontWeight: 700, color: '#fff',
-                      }}>
-                        ♻ {p.score}/100
+                    <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                          {p.category}
+                        </span>
+                        <span style={{
+                           background: p.score >= 90 ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.1)',
+                           color: p.score >= 90 ? '#10b981' : '#f59e0b',
+                           border: p.score >= 90 ? '1px solid rgba(16,185,129,0.2)' : '1px solid rgba(245,158,11,0.2)',
+                           padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 800
+                        }}>
+                           ♻ SCORE {p.score}
+                        </span>
                       </div>
-                      {/* Category */}
-                      <div style={{
-                        position: 'absolute', bottom: 0, left: 0, right: 0,
-                        background: 'linear-gradient(transparent, rgba(var(--color-eco-bg-rgb),0.85))',
-                        padding: '1.5rem 1rem 0.5rem',
-                        fontSize: '0.75rem', color: 'var(--color-text-muted)',
-                      }}>
-                        {p.category}
-                      </div>
-                    </div>
-                    <div style={{ padding: '1.25rem' }}>
                       <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
                         {p.tags.map(t => (
                           <span key={t} style={{
