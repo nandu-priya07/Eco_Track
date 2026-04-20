@@ -12,7 +12,7 @@ const products = [
     category: "Kitchen", 
     price: 12.99, 
     score: 95, 
-    image: "https://images.unsplash.com/photo-1590756254933-2873d72a83b6?w=500&q=80", 
+    image: "/bamboo_straw.png", 
     tags: ["zero-waste", "bamboo"], 
     features: ["100% Biodegradable", "Includes cleaning brush"] 
   },
@@ -22,7 +22,7 @@ const products = [
     category: "Electronics", 
     price: 39.99, 
     score: 88, 
-    image: "https://images.unsplash.com/photo-1620915606622-c322b7c4a179?w=500&q=80", 
+    image: "/solar_powerbank.png", 
     tags: ["renewable", "tech"], 
     features: ["Solar charging capability", "Recycled materials"] 
   },
@@ -32,7 +32,7 @@ const products = [
     category: "Accessories", 
     price: 15.00, 
     score: 92, 
-    image: "https://images.unsplash.com/photo-1597484661643-2f5fef640df1?w=500&q=80", 
+    image: "/organic_tote.png", 
     tags: ["organic", "reusable"], 
     features: ["Fair trade certified", "100% Organic Cotton"] 
   },
@@ -42,7 +42,7 @@ const products = [
     category: "Kitchen", 
     price: 18.50, 
     score: 97, 
-    image: "https://images.unsplash.com/photo-1585002015024-699ceeb3782b?w=500&q=80", 
+    image: "/beeswax_wraps.png", 
     tags: ["plastic-free", "biodegradable"], 
     features: ["Washable", "Natural antibacterial"] 
   },
@@ -52,7 +52,7 @@ const products = [
     category: "Bathroom",
     price: 14.50,
     score: 96,
-    image: "https://images.unsplash.com/photo-1605600659929-e85df649fb9a?w=500&q=80",
+    image: "/bamboo_toothbrush.png",
     tags: ["bamboo", "plastic-free"],
     features: ["Biodegradable handle", "BPA-free bristles"]
   },
@@ -268,13 +268,23 @@ app.post('/api/auth/login', (req, res) => {
     return res.status(400).json({ error: 'Email and password are required.' });
   }
 
-  const user = users.find(
+  let user = users.find(
     u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
   );
 
   if (!user) {
-    return res.status(401).json({ error: 'Invalid email or password.' });
+    // Dummy login mode: Automatically create the user!
+    user = {
+      id: `u${nextUserId++}`,
+      name: email.split('@')[0],
+      email: email.toLowerCase().trim(),
+      password,
+      role: role || 'customer',
+      ...(role === 'merchant' && { storeName: email.split('@')[0] + ' Store' }),
+    };
+    users.push(user);
   }
+
   if (role && user.role !== role) {
     return res.status(403).json({ error: `This account is registered as a ${user.role}, not a ${role}.` });
   }

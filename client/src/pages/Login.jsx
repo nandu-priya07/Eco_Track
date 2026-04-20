@@ -26,7 +26,7 @@ export default function Login() {
       background: `
         radial-gradient(ellipse at 20% 50%, rgba(16,185,129,0.12) 0%, transparent 55%),
         radial-gradient(ellipse at 80% 20%, rgba(52,211,153,0.08) 0%, transparent 50%),
-        #0f172a
+        var(--color-eco-bg)
       `,
     }}>
       <style>{`
@@ -43,12 +43,12 @@ export default function Login() {
             <span style={{ fontSize: '2.2rem' }}>🌿</span>
             <span style={{ fontWeight: 900, fontSize: '1.6rem', color: '#10b981' }}>EcoTrack</span>
           </Link>
-          <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.5rem' }}>Welcome back, eco warrior!</p>
+          <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Welcome back, eco warrior!</p>
         </div>
 
         {/* Card */}
         <div style={{
-          background: 'rgba(30,41,59,0.8)', backdropFilter: 'blur(16px)',
+          background: 'rgba(var(--color-eco-card-rgb),0.8)', backdropFilter: 'blur(16px)',
           border: '1px solid rgba(51,65,85,0.6)', borderRadius: '1.5rem',
           padding: '2.25rem',
           boxShadow: '0 25px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
@@ -67,8 +67,8 @@ export default function Login() {
                 style={{
                   padding: '0.75rem', borderRadius: '0.75rem', border: '1.5px solid',
                   borderColor: role === key ? '#10b981' : 'rgba(51,65,85,0.5)',
-                  background: role === key ? 'rgba(16,185,129,0.12)' : 'rgba(15,23,42,0.4)',
-                  color: role === key ? '#34d399' : '#64748b',
+                  background: role === key ? 'rgba(16,185,129,0.12)' : 'rgba(var(--color-eco-bg-rgb),0.4)',
+                  color: role === key ? '#34d399' : 'var(--color-text-muted-dark)',
                   cursor: 'pointer', fontWeight: 700, fontSize: '0.9rem',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
                   transition: 'all 0.2s',
@@ -79,10 +79,10 @@ export default function Login() {
             ))}
           </div>
 
-          <h2 style={{ fontWeight: 800, color: '#f1f5f9', fontSize: '1.3rem', marginBottom: '0.3rem' }}>
+          <h2 style={{ fontWeight: 800, color: 'var(--color-text-main)', fontSize: '1.3rem', marginBottom: '0.3rem' }}>
             {role === 'customer' ? '🌱 Customer Sign In' : '🏪 Merchant Sign In'}
           </h2>
-          <p style={{ color: '#64748b', fontSize: '0.85rem', marginBottom: '1.75rem' }}>
+          <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.85rem', marginBottom: '1.75rem' }}>
             {role === 'customer'
               ? 'Access your eco journey, orders & rewards'
               : 'Manage your products & storefronts'}
@@ -91,7 +91,7 @@ export default function Login() {
           <form onSubmit={handleSubmit}>
             {/* Email */}
             <div style={{ marginBottom: '1.1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Email Address
               </label>
               <input
@@ -101,8 +101,8 @@ export default function Login() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 style={{
-                  width: '100%', background: 'rgba(15,23,42,0.8)', border: '1.5px solid #334155',
-                  borderRadius: '0.6rem', color: '#e2e8f0', padding: '0.75rem 1rem',
+                  width: '100%', background: 'rgba(var(--color-eco-bg-rgb),0.8)', border: '1.5px solid var(--color-border)',
+                  borderRadius: '0.6rem', color: 'var(--color-text-body)', padding: '0.75rem 1rem',
                   fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s',
                   boxSizing: 'border-box',
                 }}
@@ -111,7 +111,7 @@ export default function Login() {
 
             {/* Password */}
             <div style={{ marginBottom: '0.75rem' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Password
               </label>
               <div style={{ position: 'relative' }}>
@@ -122,15 +122,15 @@ export default function Login() {
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
                   style={{
-                    width: '100%', background: 'rgba(15,23,42,0.8)', border: '1.5px solid #334155',
-                    borderRadius: '0.6rem', color: '#e2e8f0', padding: '0.75rem 2.75rem 0.75rem 1rem',
+                    width: '100%', background: 'rgba(var(--color-eco-bg-rgb),0.8)', border: '1.5px solid var(--color-border)',
+                    borderRadius: '0.6rem', color: 'var(--color-text-body)', padding: '0.75rem 2.75rem 0.75rem 1rem',
                     fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s',
                     boxSizing: 'border-box',
                   }}
                 />
                 <button type="button" onClick={() => setShowPass(s => !s)} style={{
                   position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
-                  background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', fontSize: '1rem',
+                  background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted-dark)', fontSize: '1rem',
                 }}>
                   {showPass ? '🙈' : '👁️'}
                 </button>
@@ -175,29 +175,10 @@ export default function Login() {
             <style>{`@keyframes spin { to { transform:rotate(360deg); } }`}</style>
           </form>
 
-          {/* Divider */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', margin: '1.5rem 0' }}>
-            <div style={{ flex: 1, height: 1, background: '#1e293b' }} />
-            <span style={{ color: '#475569', fontSize: '0.8rem' }}>New to EcoTrack?</span>
-            <div style={{ flex: 1, height: 1, background: '#1e293b' }} />
-          </div>
-
-          <Link
-            to="/register"
-            style={{
-              display: 'block', textAlign: 'center', padding: '0.75rem',
-              background: 'transparent', border: '1.5px solid rgba(16,185,129,0.35)',
-              borderRadius: '0.6rem', color: '#34d399', fontWeight: 700, fontSize: '0.9rem',
-              textDecoration: 'none', transition: 'background 0.2s, border-color 0.2s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(16,185,129,0.08)'; e.currentTarget.style.borderColor = '#10b981'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(16,185,129,0.35)'; }}
-          >
-            🌱 Create an Account
-          </Link>
+          {/* Removed divider and create account */}
         </div>
 
-        <p style={{ textAlign: 'center', color: '#334155', fontSize: '0.78rem', marginTop: '1.5rem' }}>
+        <p style={{ textAlign: 'center', color: 'var(--color-border)', fontSize: '0.78rem', marginTop: '1.5rem' }}>
           🔒 Secured with end-to-end encryption · EcoTrack®
         </p>
       </div>

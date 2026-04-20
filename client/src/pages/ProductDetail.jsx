@@ -16,7 +16,7 @@ function StarPicker({ value, onChange }) {
           style={{
             background: 'none', border: 'none', cursor: 'pointer',
             fontSize: '1.6rem', padding: '0.1rem',
-            color: s <= (hovered || value) ? '#f59e0b' : '#334155',
+            color: s <= (hovered || value) ? '#f59e0b' : 'var(--color-border)',
             transition: 'color 0.15s, transform 0.15s',
             transform: s <= (hovered || value) ? 'scale(1.15)' : 'scale(1)',
           }}
@@ -179,7 +179,7 @@ function ReviewsSection({ productId }) {
 
   return (
     <div style={{ marginTop: '4rem' }}>
-      <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f1f5f9', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-text-main)', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         ⭐ Customer Reviews
         {avgRating && <span style={{ fontSize: '1rem', fontWeight: 600, color: '#f59e0b' }}>({avgRating}/5)</span>}
       </h2>
@@ -190,19 +190,19 @@ function ReviewsSection({ productId }) {
           <div style={{ textAlign: 'center', minWidth: 80 }}>
             <div style={{ fontSize: '3rem', fontWeight: 900, color: '#f59e0b', lineHeight: 1 }}>{avgRating}</div>
             <div style={{ display: 'flex', justifyContent: 'center', gap: 2, margin: '0.4rem 0' }}>
-              {[1,2,3,4,5].map(s => <span key={s} style={{ color: s <= Math.round(parseFloat(avgRating)) ? '#f59e0b' : '#334155', fontSize: '1rem' }}>★</span>)}
+              {[1,2,3,4,5].map(s => <span key={s} style={{ color: s <= Math.round(parseFloat(avgRating)) ? '#f59e0b' : 'var(--color-border)', fontSize: '1rem' }}>★</span>)}
             </div>
-            <div style={{ color: '#64748b', fontSize: '0.8rem' }}>{reviews.length} review{reviews.length !== 1 ? 's' : ''}</div>
+            <div style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.8rem' }}>{reviews.length} review{reviews.length !== 1 ? 's' : ''}</div>
           </div>
           <div style={{ flex: 1, minWidth: 180 }}>
             {dist.map(({ star, count, pct }) => (
               <div key={star} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem' }}>
-                <span style={{ color: '#94a3b8', fontSize: '0.8rem', width: 18, textAlign: 'right' }}>{star}</span>
+                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', width: 18, textAlign: 'right' }}>{star}</span>
                 <span style={{ color: '#f59e0b', fontSize: '0.75rem' }}>★</span>
-                <div style={{ flex: 1, height: 6, background: '#1e293b', borderRadius: 99, overflow: 'hidden' }}>
+                <div style={{ flex: 1, height: 6, background: 'var(--color-eco-card)', borderRadius: 99, overflow: 'hidden' }}>
                   <div style={{ height: '100%', width: `${pct}%`, background: '#f59e0b', borderRadius: 99, transition: 'width 0.5s ease' }} />
                 </div>
-                <span style={{ color: '#64748b', fontSize: '0.75rem', width: 20 }}>{count}</span>
+                <span style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.75rem', width: 20 }}>{count}</span>
               </div>
             ))}
           </div>
@@ -212,7 +212,7 @@ function ReviewsSection({ productId }) {
       {/* Write a Review */}
       {user && user.role === 'customer' && !submitted && (
         <div className="glass" style={{ borderRadius: '1rem', padding: '1.5rem', marginBottom: '2rem', border: '1px solid rgba(16,185,129,0.15)' }}>
-          <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '1.25rem', fontSize: '1rem' }}>✍️ Write a Review</h3>
+          <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1.25rem', fontSize: '1rem' }}>✍️ Write a Review</h3>
           <form onSubmit={handleSubmit}>
             <div style={{ marginBottom: '1rem' }}>
               <label className="eco-label">Your Rating</label>
@@ -252,7 +252,7 @@ function ReviewsSection({ productId }) {
       )}
 
       {!user && (
-        <div className="glass" style={{ borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '2rem', textAlign: 'center', color: '#64748b' }}>
+        <div className="glass" style={{ borderRadius: '0.75rem', padding: '1.25rem', marginBottom: '2rem', textAlign: 'center', color: 'var(--color-text-muted-dark)' }}>
           <a href="/login" style={{ color: '#10b981', fontWeight: 700, textDecoration: 'none' }}>Sign in</a> to leave a review
         </div>
       )}
@@ -261,7 +261,7 @@ function ReviewsSection({ productId }) {
       {loading ? (
         <div style={{ color: '#10b981', padding: '2rem 0' }}>Loading reviews…</div>
       ) : reviews.length === 0 ? (
-        <div style={{ color: '#475569', padding: '2rem', textAlign: 'center', border: '1px dashed #334155', borderRadius: '0.75rem' }}>
+        <div style={{ color: 'var(--color-border-light)', padding: '2rem', textAlign: 'center', border: '1px dashed var(--color-border)', borderRadius: '0.75rem' }}>
           No reviews yet. Be the first to review this product!
         </div>
       ) : (
@@ -274,17 +274,17 @@ function ReviewsSection({ productId }) {
                     {r.reviewerName?.[0]?.toUpperCase() || '?'}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: '#f1f5f9', fontSize: '0.9rem' }}>{r.reviewerName || 'Anonymous'}</div>
-                    <div style={{ fontSize: '0.75rem', color: '#475569' }}>
+                    <div style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '0.9rem' }}>{r.reviewerName || 'Anonymous'}</div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-border-light)' }}>
                       {new Date(r.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
                     </div>
                   </div>
                 </div>
                 <div style={{ display: 'flex', gap: 2 }}>
-                  {[1,2,3,4,5].map(s => <span key={s} style={{ color: s <= r.rating ? '#f59e0b' : '#334155', fontSize: '0.95rem' }}>★</span>)}
+                  {[1,2,3,4,5].map(s => <span key={s} style={{ color: s <= r.rating ? '#f59e0b' : 'var(--color-border)', fontSize: '0.95rem' }}>★</span>)}
                 </div>
               </div>
-              <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.65 }}>{r.comment}</p>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', lineHeight: 1.65 }}>{r.comment}</p>
             </div>
           ))}
         </div>
@@ -322,7 +322,7 @@ export default function ProductDetail() {
   if (!product) return (
     <div style={{ textAlign: 'center', padding: '5rem' }}>
       <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🍃</div>
-      <p style={{ color: '#94a3b8', marginBottom: '1.5rem' }}>Product not found.</p>
+      <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>Product not found.</p>
       <button className="btn-eco" onClick={() => navigate('/products')}>← Back to Products</button>
     </div>
   );
@@ -338,15 +338,27 @@ export default function ProductDetail() {
       `}</style>
 
       {/* Breadcrumb */}
-      <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.875rem', color: '#64748b', marginBottom: '2rem', alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', fontSize: '0.875rem', color: 'var(--color-text-muted-dark)', marginBottom: '2rem', alignItems: 'center' }}>
         <span style={{ cursor: 'pointer', color: '#10b981' }} onClick={() => navigate('/')}>Home</span>
         <span>›</span>
         <span style={{ cursor: 'pointer', color: '#10b981' }} onClick={() => navigate('/products')}>Products</span>
         <span>›</span>
-        <span style={{ color: '#94a3b8' }}>{product.name}</span>
+        <span style={{ color: 'var(--color-text-muted)' }}>{product.name}</span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '3rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '3rem', alignItems: 'start' }}>
+        {/* ─── Left: Image ─── */}
+        <div style={{ position: 'sticky', top: '2rem' }}>
+          <div
+            style={{
+              position: 'relative', width: '100%', paddingTop: '100%',
+              background: 'var(--color-eco-bg)', borderRadius: '1.5rem', overflow: 'hidden',
+              border: '1px solid rgba(16,185,129,0.2)',
+            }}
+          >
+            <img src={product.image} alt={product.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        </div>
 
         {/* ─── Right: Info ─── */}
         <div>
@@ -356,19 +368,19 @@ export default function ProductDetail() {
             ))}
           </div>
 
-          <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: '#f1f5f9', marginBottom: '0.75rem' }}>{product.name}</h1>
+          <h1 style={{ fontSize: '1.9rem', fontWeight: 800, color: 'var(--color-text-main)', marginBottom: '0.75rem' }}>{product.name}</h1>
 
           <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#10b981', marginBottom: '1.5rem' }}>₹{(product.price * 25).toFixed(2)}</div>
 
           {/* Eco Score */}
           <div className="glass" style={{ borderRadius: '1rem', padding: '1.5rem', marginBottom: '1.5rem' }}>
-            <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '1rem', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1rem', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               🌿 Sustainability Score
             </h3>
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
               <div style={{ position: 'relative', width: '90px', height: '90px', flexShrink: 0 }}>
                 <svg viewBox="0 0 36 36" style={{ width: '90px', height: '90px', transform: 'rotate(-90deg)' }}>
-                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#1e293b" strokeWidth="3" />
+                  <circle cx="18" cy="18" r="15.9155" fill="none" stroke="var(--color-eco-card)" strokeWidth="3" />
                   <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#10b981" strokeWidth="3"
                     strokeDasharray={`${product.score} 100`} strokeLinecap="round" />
                 </svg>
@@ -377,20 +389,20 @@ export default function ProductDetail() {
                 </div>
               </div>
               <div>
-                <div style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.25rem' }}>
+                <div style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.25rem' }}>
                   {product.score >= 90 ? 'Excellent 🌟' : product.score >= 75 ? 'Good 👍' : 'Fair ⚠️'}
                 </div>
-                <p style={{ color: '#64748b', fontSize: '0.875rem' }}>Out of 100 possible eco points</p>
+                <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.875rem' }}>Out of 100 possible eco points</p>
               </div>
             </div>
           </div>
 
           {/* Features */}
           <div style={{ marginBottom: '1.75rem' }}>
-            <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.75rem' }}>Eco Features</h3>
+            <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.75rem' }}>Eco Features</h3>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
               {product.features.map(feat => (
-                <li key={feat} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: '#94a3b8', fontSize: '0.95rem' }}>
+                <li key={feat} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--color-text-muted)', fontSize: '0.95rem' }}>
                   <span style={{ color: '#10b981' }}>✔</span> {feat}
                 </li>
               ))}
@@ -412,9 +424,9 @@ export default function ProductDetail() {
                 onClick={() => setWishlist(w => !w)}
                 style={{
                   padding: '0.6rem 1rem', borderRadius: '0.5rem',
-                  border: '1px solid #334155',
-                  background: wishlist ? 'rgba(239,68,68,0.1)' : '#1e293b',
-                  color: wishlist ? '#ef4444' : '#94a3b8',
+                  border: '1px solid var(--color-border)',
+                  background: wishlist ? 'rgba(239,68,68,0.1)' : 'var(--color-eco-card)',
+                  color: wishlist ? '#ef4444' : 'var(--color-text-muted)',
                   cursor: 'pointer', fontSize: '1.2rem', transition: 'all 0.2s',
                 }}
               >

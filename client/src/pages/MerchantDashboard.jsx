@@ -8,10 +8,10 @@ const EMPTY_FORM = { name: '', category: 'Kitchen', price: '', score: '', tags: 
 function Modal({ title, children, onClose }) {
   return (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', animation: 'fadeIn 0.2s ease' }}>
-      <div style={{ background: '#1e293b', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '1.25rem', width: '100%', maxWidth: 560, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}>
+      <div style={{ background: 'var(--color-eco-card)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '1.25rem', width: '100%', maxWidth: 560, maxHeight: '90vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}>
         <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid rgba(51,65,85,0.5)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(16,185,129,0.06)' }}>
-          <h3 style={{ fontWeight: 700, color: '#f1f5f9', fontSize: '1.1rem' }}>{title}</h3>
-          <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 30, height: 30, cursor: 'pointer', color: '#94a3b8', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
+          <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '1.1rem' }}>{title}</h3>
+          <button onClick={onClose} style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '50%', width: 30, height: 30, cursor: 'pointer', color: 'var(--color-text-muted)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
         </div>
         <div style={{ padding: '1.5rem', overflowY: 'auto', flex: 1 }}>{children}</div>
       </div>
@@ -46,7 +46,7 @@ function ProductForm({ form, setForm, onSubmit, loading, submitLabel }) {
             <label className="eco-label">Eco Score (0–100)</label>
             <input className="eco-input" type="number" min="0" max="100" required value={form.score} onChange={e => setForm(f => ({ ...f, score: e.target.value }))} placeholder="85" />
             {form.score && (
-              <div style={{ marginTop: '0.3rem', height: 4, borderRadius: 99, background: '#0f172a', overflow: 'hidden' }}>
+              <div style={{ marginTop: '0.3rem', height: 4, borderRadius: 99, background: 'var(--color-eco-bg)', overflow: 'hidden' }}>
                 <div style={{ height: '100%', width: `${form.score}%`, background: form.score >= 80 ? '#10b981' : form.score >= 60 ? '#f59e0b' : '#ef4444', transition: 'width 0.3s' }} />
               </div>
             )}
@@ -180,20 +180,20 @@ export default function MerchantDashboard() {
   if (!user) return null;
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0f172a', padding: '2rem 1.5rem' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--color-eco-bg)', padding: '2rem 1.5rem' }}>
       <style>{`
         @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
         @keyframes spin{to{transform:rotate(360deg);}}
-        option{background:#1e293b;color:#e2e8f0;}
+        option{background:var(--color-eco-card);color:var(--color-text-body);}
       `}</style>
 
       {/* Toast */}
       {toast && (
         <div style={{
           position: 'fixed', top: '1.25rem', right: '1.25rem', zIndex: 3000,
-          background: '#1e293b', border: '1px solid rgba(16,185,129,0.3)',
+          background: 'var(--color-eco-card)', border: '1px solid rgba(16,185,129,0.3)',
           borderRadius: '0.75rem', padding: '0.75rem 1.25rem',
-          color: '#e2e8f0', fontSize: '0.9rem', fontWeight: 600,
+          color: 'var(--color-text-body)', fontSize: '0.9rem', fontWeight: 600,
           boxShadow: '0 8px 30px rgba(0,0,0,0.4)', animation: 'fadeIn 0.3s ease',
         }}>
           {toast}
@@ -209,8 +209,8 @@ export default function MerchantDashboard() {
                 🏪
               </div>
               <div>
-                <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#f1f5f9' }}>Merchant Dashboard</h1>
-                <p style={{ color: '#64748b', fontSize: '0.85rem' }}>{user.storeName || user.name}</p>
+                <h1 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-text-main)' }}>Merchant Dashboard</h1>
+                <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.85rem' }}>{user.storeName || user.name}</p>
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function MerchantDashboard() {
             <div key={label} className="glass" style={{ borderRadius: '1rem', padding: '1.5rem', textAlign: 'center' }}>
               <div style={{ fontSize: '1.75rem', marginBottom: '0.4rem' }}>{icon}</div>
               <div style={{ fontSize: '1.6rem', fontWeight: 900, color }}>{value}</div>
-              <div style={{ fontSize: '0.78rem', color: '#64748b', marginTop: '0.2rem' }}>{label}</div>
+              <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted-dark)', marginTop: '0.2rem' }}>{label}</div>
             </div>
           ))}
         </div>
@@ -253,8 +253,8 @@ export default function MerchantDashboard() {
         {/* Products Table */}
         <div className="glass" style={{ borderRadius: '1.25rem', overflow: 'hidden' }}>
           <div style={{ padding: '1.25rem 1.5rem', borderBottom: '1px solid rgba(51,65,85,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h2 style={{ fontWeight: 700, color: '#f1f5f9', fontSize: '1rem' }}>📦 Your Products</h2>
-            <span style={{ fontSize: '0.8rem', color: '#64748b' }}>{products.length} listing{products.length !== 1 ? 's' : ''}</span>
+            <h2 style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '1rem' }}>📦 Your Products</h2>
+            <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-dark)' }}>{products.length} listing{products.length !== 1 ? 's' : ''}</span>
           </div>
 
           {loading ? (
@@ -262,7 +262,7 @@ export default function MerchantDashboard() {
           ) : products.length === 0 ? (
             <div style={{ padding: '4rem', textAlign: 'center' }}>
               <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📦</div>
-              <p style={{ color: '#64748b', marginBottom: '1.25rem' }}>No products yet. Add your first eco product!</p>
+              <p style={{ color: 'var(--color-text-muted-dark)', marginBottom: '1.25rem' }}>No products yet. Add your first eco product!</p>
               <button className="btn-eco" onClick={openAdd}>＋ Add Your First Product</button>
             </div>
           ) : (
@@ -271,7 +271,7 @@ export default function MerchantDashboard() {
                 <thead>
                   <tr style={{ borderBottom: '1px solid rgba(51,65,85,0.4)' }}>
                     {['Product', 'Category', 'Price', 'Eco Score', 'Actions'].map(h => (
-                      <th key={h} style={{ padding: '0.85rem 1rem', textAlign: 'left', color: '#64748b', fontWeight: 700, fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>{h}</th>
+                      <th key={h} style={{ padding: '0.85rem 1rem', textAlign: 'left', color: 'var(--color-text-muted-dark)', fontWeight: 700, fontSize: '0.78rem', textTransform: 'uppercase', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -284,14 +284,17 @@ export default function MerchantDashboard() {
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
                         <td style={{ padding: '0.85rem 1rem' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                            <span style={{ fontWeight: 600, color: '#f1f5f9', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</span>
+                            <div style={{ width: 36, height: 36, borderRadius: '0.4rem', overflow: 'hidden', background: 'var(--color-eco-bg)', flexShrink: 0 }}>
+                              <img src={p.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            </div>
+                            <span style={{ fontWeight: 600, color: 'var(--color-text-main)', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</span>
                           </div>
                         </td>
-                        <td style={{ padding: '0.85rem 1rem', color: '#94a3b8' }}>{p.category}</td>
+                        <td style={{ padding: '0.85rem 1rem', color: 'var(--color-text-muted)' }}>{p.category}</td>
                         <td style={{ padding: '0.85rem 1rem', color: '#10b981', fontWeight: 700 }}>₹{(parseFloat(p.price) * 25).toFixed(2)}</td>
                         <td style={{ padding: '0.85rem 1rem' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <div style={{ width: 50, height: 5, background: '#0f172a', borderRadius: 99, overflow: 'hidden' }}>
+                            <div style={{ width: 50, height: 5, background: 'var(--color-eco-bg)', borderRadius: 99, overflow: 'hidden' }}>
                               <div style={{ height: '100%', width: `${p.score}%`, background: p.score >= 80 ? '#10b981' : '#f59e0b', borderRadius: 99 }} />
                             </div>
                             <span style={{ color: '#10b981', fontWeight: 700, fontSize: '0.8rem' }}>{p.score}</span>
@@ -340,10 +343,10 @@ export default function MerchantDashboard() {
       {/* Delete Confirm */}
       {deleteId && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(6px)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-          <div style={{ background: '#1e293b', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '1.25rem', padding: '2rem', width: '100%', maxWidth: 380, textAlign: 'center', boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}>
+          <div style={{ background: 'var(--color-eco-card)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '1.25rem', padding: '2rem', width: '100%', maxWidth: 380, textAlign: 'center', boxShadow: '0 30px 80px rgba(0,0,0,0.5)' }}>
             <div style={{ fontSize: '3rem', marginBottom: '0.75rem' }}>🗑️</div>
-            <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.5rem' }}>Delete Product?</h3>
-            <p style={{ color: '#64748b', fontSize: '0.9rem', marginBottom: '1.5rem' }}>This action cannot be undone. The product will be permanently removed.</p>
+            <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Delete Product?</h3>
+            <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>This action cannot be undone. The product will be permanently removed.</p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
               <button onClick={() => setDeleteId(null)} className="btn-outline-eco" style={{ flex: 1 }}>Cancel</button>
               <button onClick={handleDelete} style={{ flex: 1, padding: '0.7rem', background: 'linear-gradient(135deg,#ef4444,#dc2626)', border: 'none', borderRadius: '0.5rem', color: '#fff', fontWeight: 700, cursor: 'pointer' }}>

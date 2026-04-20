@@ -48,6 +48,35 @@ export default function Gamification() {
         <p className="section-subtitle">Complete challenges, earn points, unlock exclusive rewards</p>
       </div>
 
+
+      {/* Criteria Table */}
+      <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1rem' }}>How to Earn Points</h2>
+      <div className="glass" style={{ borderRadius: '1rem', overflow: 'hidden', marginBottom: '3rem' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+          <thead>
+            <tr style={{ background: 'rgba(16,185,129,0.08)', borderBottom: '1px solid rgba(16,185,129,0.2)' }}>
+              <th style={{ padding: '0.85rem 1.5rem', textAlign: 'left', color: 'var(--color-text-main)', fontWeight: 700 }}>Activity</th>
+              <th style={{ padding: '0.85rem 1.5rem', textAlign: 'left', color: 'var(--color-text-main)', fontWeight: 700 }}>Points Earned</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { act: 'Daily Check-in Streak', pts: '+5 pts/day' },
+              { act: 'Use Green Transport', pts: '+15 pts' },
+              { act: 'Log a Recycling Session', pts: '+20 pts' },
+              { act: 'Purchase Eco Product', pts: '+50 pts/item' },
+              { act: 'Complete Challenge', pts: '+100 - 500 pts' },
+            ].map((row, i) => (
+              <tr key={row.act} style={{ borderBottom: i !== 4 ? '1px solid var(--color-border)' : 'none' }}>
+                <td style={{ padding: '0.85rem 1.5rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ color: '#10b981' }}>✔</span> {row.act}
+                </td>
+                <td style={{ padding: '0.85rem 1.5rem', color: '#10b981', fontWeight: 700 }}>{row.pts}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {/* Points Banner */}
       <div style={{
         background: 'linear-gradient(135deg, #064e3b, #065f46)',
@@ -82,7 +111,7 @@ export default function Gamification() {
       </div>
 
       {/* Challenges */}
-      <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#f1f5f9', marginBottom: '1.5rem' }}>Active Challenges</h2>
+      <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1.5rem' }}>Active Challenges</h2>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem', marginBottom: '4rem' }}>
         {CHALLENGES.map(ch => (
           <div key={ch.id} className="card-hover glass" style={{ borderRadius: '1rem', padding: '1.5rem' }}>
@@ -95,13 +124,13 @@ export default function Gamification() {
                 <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#10b981' }}>+{ch.points} pts</span>
               </div>
             </div>
-            <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.4rem' }}>{ch.title}</h3>
-            <p style={{ color: '#94a3b8', fontSize: '0.875rem', marginBottom: '1rem', lineHeight: 1.5 }}>{ch.desc}</p>
+            <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.4rem' }}>{ch.title}</h3>
+            <p style={{ color: 'var(--color-text-muted)', fontSize: '0.875rem', marginBottom: '1rem', lineHeight: 1.5 }}>{ch.desc}</p>
             <div style={{ marginBottom: '1rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: '#64748b', marginBottom: '0.3rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--color-text-muted-dark)', marginBottom: '0.3rem' }}>
                 <span>Progress</span><span>{ch.progress}%</span>
               </div>
-              <div style={{ background: '#1e293b', borderRadius: '9999px', height: '6px', overflow: 'hidden' }}>
+              <div style={{ background: 'var(--color-eco-card)', borderRadius: '9999px', height: '6px', overflow: 'hidden' }}>
                 <div style={{ background: 'linear-gradient(90deg, #10b981, #34d399)', width: `${ch.progress}%`, height: '100%', borderRadius: '9999px' }} />
               </div>
             </div>
@@ -118,14 +147,14 @@ export default function Gamification() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3rem' }}>
         {/* Rewards */}
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#f1f5f9', marginBottom: '1.5rem' }}>🎁 Rewards Store</h2>
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1.5rem' }}>🎁 Rewards Store</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {REWARDS.map(r => (
               <div key={r.title} className="glass" style={{ borderRadius: '1rem', padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ fontSize: '2rem', flexShrink: 0 }}>{r.icon}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.15rem' }}>{r.title}</div>
-                  <div style={{ color: '#64748b', fontSize: '0.8rem', marginBottom: '0.3rem' }}>{r.desc}</div>
+                  <div style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.15rem' }}>{r.title}</div>
+                  <div style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.8rem', marginBottom: '0.3rem' }}>{r.desc}</div>
                   <div style={{ color: '#10b981', fontWeight: 700, fontSize: '0.85rem' }}>🌿 {r.cost} pts</div>
                 </div>
                 <button
@@ -133,8 +162,8 @@ export default function Gamification() {
                   disabled={ecoPoints < r.cost || redeemed[r.title]}
                   style={{
                     padding: '0.45rem 0.9rem', borderRadius: '0.5rem', border: 'none', fontWeight: 700, cursor: ecoPoints < r.cost || redeemed[r.title] ? 'not-allowed' : 'pointer', fontSize: '0.8rem',
-                    background: redeemed[r.title] ? '#064e3b' : ecoPoints < r.cost ? '#1e293b' : '#10b981',
-                    color: redeemed[r.title] ? '#34d399' : ecoPoints < r.cost ? '#475569' : '#fff',
+                    background: redeemed[r.title] ? '#064e3b' : ecoPoints < r.cost ? 'var(--color-eco-card)' : '#10b981',
+                    color: redeemed[r.title] ? '#34d399' : ecoPoints < r.cost ? 'var(--color-border-light)' : '#fff',
                     whiteSpace: 'nowrap',
                   }}>
                   {redeemed[r.title] ? '✔ Redeemed' : ecoPoints < r.cost ? 'Not enough pts' : 'Redeem'}
@@ -146,7 +175,7 @@ export default function Gamification() {
 
         {/* Leaderboard */}
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#f1f5f9', marginBottom: '1.5rem' }}>🌍 Leaderboard</h2>
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1.5rem' }}>🌍 Leaderboard</h2>
           <div className="glass" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
             {LEADERBOARD.map((user, i) => (
               <div key={user.rank} style={{
@@ -156,8 +185,8 @@ export default function Gamification() {
               }}>
                 <div style={{ fontSize: '1.4rem', width: '2rem', textAlign: 'center' }}>{user.badge}</div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 700, color: user.isYou ? '#10b981' : '#f1f5f9', fontSize: '0.95rem' }}>
-                    {user.name} {user.isYou && <span style={{ fontSize: '0.75rem', color: '#64748b' }}>(you)</span>}
+                  <div style={{ fontWeight: 700, color: user.isYou ? '#10b981' : 'var(--color-text-main)', fontSize: '0.95rem' }}>
+                    {user.name} {user.isYou && <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted-dark)' }}>(you)</span>}
                   </div>
                 </div>
                 <div style={{ fontWeight: 800, color: '#10b981', fontSize: '0.95rem' }}>{user.points.toLocaleString()} pts</div>

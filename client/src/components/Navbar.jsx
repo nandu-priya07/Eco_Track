@@ -16,7 +16,13 @@ export default function Navbar() {
   const { pathname } = useLocation();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [isLight, setIsLight] = useState(() => localStorage.getItem('theme') === 'light');
   const dropRef = useRef(null);
+
+  useEffect(() => {
+    document.body.className = isLight ? 'light-theme' : '';
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+  }, [isLight]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -51,16 +57,29 @@ export default function Navbar() {
               <Link key={l.to} to={l.to}
                 style={{
                   textDecoration: 'none', fontWeight: 600, fontSize: '0.95rem',
-                  color: pathname === l.to ? '#10b981' : '#94a3b8',
+                  color: pathname === l.to ? '#10b981' : 'var(--color-text-muted)',
                   borderBottom: pathname === l.to ? '2px solid #10b981' : '2px solid transparent',
                   paddingBottom: '2px', transition: 'color 0.2s',
                 }}
-                onMouseEnter={e => { if (pathname !== l.to) e.currentTarget.style.color = '#e2e8f0'; }}
-                onMouseLeave={e => { if (pathname !== l.to) e.currentTarget.style.color = '#94a3b8'; }}
+                onMouseEnter={e => { if (pathname !== l.to) e.currentTarget.style.color = 'var(--color-text-body)'; }}
+                onMouseLeave={e => { if (pathname !== l.to) e.currentTarget.style.color = 'var(--color-text-muted)'; }}
               >
                 {l.label}
               </Link>
             ))}
+
+            {/* Theme Toggle */}
+            <button
+              onClick={() => setIsLight(prev => !prev)}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontSize: '1.2rem', color: isLight ? '#f59e0b' : '#94a3b8',
+                padding: '0.2rem', transition: 'color 0.2s', display: 'flex', alignItems: 'center'
+              }}
+              aria-label="Toggle Theme"
+            >
+              {isLight ? '☀️' : '🌙'}
+            </button>
 
             {/* Auth section */}
             {user ? (
@@ -84,35 +103,35 @@ export default function Navbar() {
                   }}>
                     {user.name?.[0]?.toUpperCase() || '?'}
                   </div>
-                  <span style={{ fontWeight: 600, color: '#e2e8f0', fontSize: '0.875rem', maxWidth: 90, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <span style={{ fontWeight: 600, color: 'var(--color-text-body)', fontSize: '0.875rem', maxWidth: 90, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {user.name}
                   </span>
-                  <span style={{ color: '#64748b', fontSize: '0.7rem', transform: dropOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>▼</span>
+                  <span style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.7rem', transform: dropOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>▼</span>
                 </button>
 
                 {/* Dropdown */}
                 {dropOpen && (
                   <div style={{
                     position: 'absolute', right: 0, top: 'calc(100% + 0.5rem)',
-                    background: '#1e293b', border: '1px solid rgba(51,65,85,0.6)',
+                    background: 'var(--color-eco-card)', border: '1px solid rgba(51,65,85,0.6)',
                     borderRadius: '0.85rem', padding: '0.5rem',
                     minWidth: 200, boxShadow: '0 15px 40px rgba(0,0,0,0.4)',
                     animation: 'dropIn 0.15s ease',
                   }}>
                     {/* Role badge */}
                     <div style={{ padding: '0.5rem 0.75rem', marginBottom: '0.25rem' }}>
-                      <div style={{ fontSize: '0.75rem', color: '#475569', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Signed in as</div>
-                      <div style={{ fontWeight: 700, color: '#94a3b8', fontSize: '0.875rem' }}>{user.email}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--color-border-light)', textTransform: 'uppercase', letterSpacing: '0.06em' }}>Signed in as</div>
+                      <div style={{ fontWeight: 700, color: 'var(--color-text-muted)', fontSize: '0.875rem' }}>{user.email}</div>
                       <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '1rem', padding: '0.15rem 0.55rem', fontSize: '0.72rem', color: '#34d399', marginTop: '0.3rem' }}>
                         {user.role === 'merchant' ? '🏪' : '🌿'} {user.role}
                       </div>
                     </div>
-                    <div style={{ borderTop: '1px solid #334155', margin: '0.25rem 0' }} />
+                    <div style={{ borderTop: '1px solid var(--color-border)', margin: '0.25rem 0' }} />
                     {user.role === 'merchant' && (
                       <Link
                         to="/merchant/dashboard"
                         onClick={() => setDropOpen(false)}
-                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', borderRadius: '0.5rem', textDecoration: 'none', color: '#e2e8f0', fontSize: '0.875rem', fontWeight: 600, transition: 'background 0.15s' }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', borderRadius: '0.5rem', textDecoration: 'none', color: 'var(--color-text-body)', fontSize: '0.875rem', fontWeight: 600, transition: 'background 0.15s' }}
                         onMouseEnter={e => e.currentTarget.style.background = 'rgba(16,185,129,0.08)'}
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
@@ -123,14 +142,14 @@ export default function Navbar() {
                       <Link
                         to="/gamification"
                         onClick={() => setDropOpen(false)}
-                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', borderRadius: '0.5rem', textDecoration: 'none', color: '#e2e8f0', fontSize: '0.875rem', fontWeight: 600, transition: 'background 0.15s' }}
+                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', borderRadius: '0.5rem', textDecoration: 'none', color: 'var(--color-text-body)', fontSize: '0.875rem', fontWeight: 600, transition: 'background 0.15s' }}
                         onMouseEnter={e => e.currentTarget.style.background = 'rgba(16,185,129,0.08)'}
                         onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                       >
                         🏆 My Challenges
                       </Link>
                     )}
-                    <div style={{ borderTop: '1px solid #334155', margin: '0.25rem 0' }} />
+                    <div style={{ borderTop: '1px solid var(--color-border)', margin: '0.25rem 0' }} />
                     <button
                       onClick={handleLogout}
                       style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 0.75rem', borderRadius: '0.5rem', background: 'none', border: 'none', color: '#f87171', fontSize: '0.875rem', fontWeight: 600, cursor: 'pointer', transition: 'background 0.15s' }}
@@ -148,7 +167,7 @@ export default function Navbar() {
                   Sign In
                 </Link>
                 <Link to="/register" className="btn-eco" style={{ padding: '0.42rem 1.1rem', fontSize: '0.875rem', textDecoration: 'none' }}>
-                  Join Free
+{/* Removed */}
                 </Link>
               </div>
             )}
@@ -157,7 +176,7 @@ export default function Navbar() {
           {/* Hamburger */}
           <button
             onClick={() => setOpen(o => !o)}
-            style={{ display: 'none', background: 'none', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '1.5rem' }}
+            style={{ display: 'none', background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', fontSize: '1.5rem' }}
             className="hamburger"
           >
             {open ? '✕' : '☰'}
@@ -168,16 +187,16 @@ export default function Navbar() {
       {/* Mobile menu */}
       {open && (
         <div style={{
-          background: '#1e293b', borderTop: '1px solid #334155',
+          background: 'var(--color-eco-card)', borderTop: '1px solid var(--color-border)',
           padding: '1rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.85rem',
         }}>
           {navLinks.map(l => (
             <Link key={l.to} to={l.to} onClick={() => setOpen(false)}
-              style={{ textDecoration: 'none', fontWeight: 600, color: pathname === l.to ? '#10b981' : '#94a3b8' }}>
+              style={{ textDecoration: 'none', fontWeight: 600, color: pathname === l.to ? '#10b981' : 'var(--color-text-muted)' }}>
               {l.label}
             </Link>
           ))}
-          <div style={{ borderTop: '1px solid #334155', paddingTop: '0.75rem', display: 'flex', gap: '0.75rem' }}>
+          <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '0.75rem', display: 'flex', gap: '0.75rem' }}>
             {user ? (
               <button onClick={() => { handleLogout(); setOpen(false); }} style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '0.5rem', padding: '0.5rem 1rem', color: '#f87171', cursor: 'pointer', fontWeight: 600, fontSize: '0.875rem' }}>
                 🚪 Sign Out
@@ -185,7 +204,7 @@ export default function Navbar() {
             ) : (
               <>
                 <Link to="/login" onClick={() => setOpen(false)} className="btn-outline-eco" style={{ textDecoration: 'none', flex: 1, textAlign: 'center' }}>Sign In</Link>
-                <Link to="/register" onClick={() => setOpen(false)} className="btn-eco" style={{ textDecoration: 'none', flex: 1, textAlign: 'center' }}>Join Free</Link>
+                {/* Join Free removed */}
               </>
             )}
           </div>

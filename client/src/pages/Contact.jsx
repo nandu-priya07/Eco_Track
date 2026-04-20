@@ -39,8 +39,8 @@ export default function Contact() {
               <div key={label} className="glass" style={{ borderRadius: '1rem', padding: '1.25rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
                 <div style={{ fontSize: '1.8rem', flexShrink: 0 }}>{icon}</div>
                 <div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>{label}</div>
-                  <div style={{ fontWeight: 600, color: '#f1f5f9' }}>{value}</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-dark)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>{label}</div>
+                  <div style={{ fontWeight: 600, color: 'var(--color-text-main)' }}>{value}</div>
                 </div>
               </div>
             ))}
@@ -48,15 +48,15 @@ export default function Contact() {
 
           {/* FAQ */}
           <div className="glass" style={{ borderRadius: '1rem', padding: '1.5rem' }}>
-            <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '1rem' }}>❓ Frequently Asked</h3>
+            <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '1rem' }}>❓ Frequently Asked</h3>
             {[
               ['Are all products eco-certified?', 'Yes! Every product undergoes our rigorous sustainability audit.'],
               ['How do I earn eco points?', 'You earn points on every purchase and completed challenge.'],
               ['Do you ship internationally?', 'We ship to 40+ countries with carbon-neutral delivery.'],
             ].map(([q, a]) => (
               <div key={q} style={{ marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid rgba(51,65,85,0.5)' }}>
-                <div style={{ fontWeight: 600, color: '#e2e8f0', marginBottom: '0.3rem', fontSize: '0.9rem' }}>{q}</div>
-                <div style={{ color: '#64748b', fontSize: '0.85rem', lineHeight: 1.5 }}>{a}</div>
+                <div style={{ fontWeight: 600, color: 'var(--color-text-body)', marginBottom: '0.3rem', fontSize: '0.9rem' }}>{q}</div>
+                <div style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.85rem', lineHeight: 1.5 }}>{a}</div>
               </div>
             ))}
           </div>
@@ -68,8 +68,8 @@ export default function Contact() {
             {sent ? (
               <div style={{ textAlign: 'center', padding: '2rem' }}>
                 <div style={{ fontSize: '4rem', marginBottom: '1rem' }}>✅</div>
-                <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.5rem' }}>Message Sent!</h3>
-                <p style={{ color: '#94a3b8', marginBottom: '1.5rem' }}>Thanks for reaching out. We'll get back to you within 24 hours.</p>
+                <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Message Sent!</h3>
+                <p style={{ color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>Thanks for reaching out. We'll get back to you within 24 hours.</p>
                 <button className="btn-eco" onClick={() => setSent(false)}>Send Another</button>
               </div>
             ) : (
@@ -105,12 +105,12 @@ export default function Contact() {
             {[['🐦', 'Twitter'], ['📸', 'Instagram'], ['💼', 'LinkedIn'], ['📘', 'Facebook']].map(([icon, name]) => (
               <a key={name} href="#" title={name} style={{
                 display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.3rem',
-                background: '#1e293b', border: '1px solid #334155', borderRadius: '0.75rem',
-                padding: '0.75rem 1rem', textDecoration: 'none', color: '#94a3b8', fontSize: '0.75rem',
+                background: 'var(--color-eco-card)', border: '1px solid var(--color-border)', borderRadius: '0.75rem',
+                padding: '0.75rem 1rem', textDecoration: 'none', color: 'var(--color-text-muted)', fontSize: '0.75rem',
                 transition: 'all 0.2s',
               }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = '#10b981'; e.currentTarget.style.color = '#10b981'; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = '#334155'; e.currentTarget.style.color = '#94a3b8'; }}>
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--color-border)'; e.currentTarget.style.color = 'var(--color-text-muted)'; }}>
                 <span style={{ fontSize: '1.3rem' }}>{icon}</span>
                 {name}
               </a>

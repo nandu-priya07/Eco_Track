@@ -116,7 +116,7 @@ export default function Home() {
             <h1 style={{
               fontSize: 'clamp(2.4rem, 5.5vw, 3.8rem)',
               fontWeight: 900, lineHeight: 1.1,
-              marginBottom: '1.5rem', color: '#f1f5f9',
+              marginBottom: '1.5rem', color: 'var(--color-text-main)',
               letterSpacing: '-0.02em',
             }}>
               Shop Smarter.<br />
@@ -129,7 +129,7 @@ export default function Home() {
             </h1>
 
             <p style={{
-              fontSize: '1.15rem', color: '#94a3b8', lineHeight: 1.75,
+              fontSize: '1.15rem', color: 'var(--color-text-muted)', lineHeight: 1.75,
               marginBottom: '2.25rem', maxWidth: '500px',
             }}>
               Discover eco-certified products, track your personal sustainability score, and earn rewards for every greener choice you make.
@@ -160,7 +160,7 @@ export default function Home() {
               {[['500+', 'Eco Products'], ['97%', 'Satisfaction'], ['12t', 'CO₂ Saved']].map(([num, label]) => (
                 <div key={label}>
                   <div style={{ fontSize: '1.7rem', fontWeight: 800, color: '#10b981', lineHeight: 1 }}>{num}</div>
-                  <div style={{ fontSize: '0.82rem', color: '#64748b', marginTop: '0.2rem' }}>{label}</div>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted-dark)', marginTop: '0.2rem' }}>{label}</div>
                 </div>
               ))}
             </div>
@@ -186,11 +186,11 @@ export default function Home() {
               ].map(({ icon, label, top, left, right, delay }) => (
                 <div key={label} style={{
                   position: 'absolute', top, left, right,
-                  background: 'rgba(30,41,59,0.85)', backdropFilter: 'blur(10px)',
+                  background: 'rgba(var(--color-eco-card-rgb),0.85)', backdropFilter: 'blur(10px)',
                   border: '1px solid rgba(16,185,129,0.2)',
                   borderRadius: '0.75rem', padding: '0.5rem 0.85rem',
                   display: 'flex', alignItems: 'center', gap: '0.4rem',
-                  fontSize: '0.8rem', color: '#e2e8f0', fontWeight: 600,
+                  fontSize: '0.8rem', color: 'var(--color-text-body)', fontWeight: 600,
                   animation: `floatBadge 3s ease-in-out ${delay} infinite alternate`,
                   whiteSpace: 'nowrap',
                 }}>
@@ -244,8 +244,8 @@ export default function Home() {
                 <div style={{ fontSize: '2.2rem', fontWeight: 900, color: '#10b981', lineHeight: 1 }}>
                   <CountUp target={value} />
                 </div>
-                <div style={{ fontWeight: 700, color: '#f1f5f9', marginTop: '0.4rem', fontSize: '1rem' }}>{label}</div>
-                <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.2rem' }}>{desc}</div>
+                <div style={{ fontWeight: 700, color: 'var(--color-text-main)', marginTop: '0.4rem', fontSize: '1rem' }}>{label}</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-dark)', marginTop: '0.2rem' }}>{desc}</div>
               </div>
             ))}
           </div>
@@ -253,7 +253,7 @@ export default function Home() {
       </section>
 
       {/* ── WHY ECOTRACK ───────────────────────────────────── */}
-      <section style={{ padding: '6rem 1.5rem', background: 'rgba(15,23,42,0.8)' }}>
+      <section style={{ padding: '6rem 1.5rem', background: 'rgba(var(--color-eco-bg-rgb),0.8)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <div style={{
@@ -289,8 +289,8 @@ export default function Home() {
                 }}>
                   {icon}
                 </div>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: '#f1f5f9', marginBottom: '0.6rem' }}>{title}</h3>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.65 }}>{desc}</p>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.6rem' }}>{title}</h3>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', lineHeight: 1.65 }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -335,8 +335,8 @@ export default function Home() {
                       {step}
                     </div>
                   </div>
-                  <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.6rem' }}>{title}</h3>
-                  <p style={{ color: '#64748b', fontSize: '0.875rem', lineHeight: 1.65 }}>{desc}</p>
+                  <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.6rem' }}>{title}</h3>
+                  <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.875rem', lineHeight: 1.65 }}>{desc}</p>
                 </div>
               </div>
             ))}
@@ -345,7 +345,7 @@ export default function Home() {
       </section>
 
       {/* ── FEATURED PRODUCTS ───────────────────────────────── */}
-      <section style={{ padding: '6rem 1.5rem', background: 'rgba(15,23,42,0.6)' }}>
+      <section style={{ padding: '6rem 1.5rem', background: 'rgba(var(--color-eco-bg-rgb),0.6)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
@@ -359,7 +359,7 @@ export default function Home() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1.5rem' }}>
               {[1, 2, 3].map(i => (
                 <div key={i} style={{
-                  background: 'rgba(30,41,59,0.4)', borderRadius: '1rem',
+                  background: 'rgba(var(--color-eco-card-rgb),0.4)', borderRadius: '1rem',
                   height: 380, animation: 'shimmer 1.5s ease-in-out infinite',
                   border: '1px solid rgba(51,65,85,0.3)',
                 }} />
@@ -373,7 +373,8 @@ export default function Home() {
                     borderRadius: '1.25rem', overflow: 'hidden', cursor: 'pointer',
                     animation: `fadeInUp 0.5s ease-out ${i * 0.1}s both`,
                   }}>
-                    <div style={{ height: '140px', background: 'rgba(16,185,129,0.05)', position: 'relative' }}>
+                    <div style={{ height: '210px', overflow: 'hidden', position: 'relative' }}>
+                      <img src={p.image} alt={p.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} />
                       {/* Score badge */}
                       <div style={{
                         position: 'absolute', top: '0.75rem', right: '0.75rem',
@@ -386,9 +387,9 @@ export default function Home() {
                       {/* Category */}
                       <div style={{
                         position: 'absolute', bottom: 0, left: 0, right: 0,
-                        background: 'linear-gradient(transparent, rgba(15,23,42,0.85))',
+                        background: 'linear-gradient(transparent, rgba(var(--color-eco-bg-rgb),0.85))',
                         padding: '1.5rem 1rem 0.5rem',
-                        fontSize: '0.75rem', color: '#94a3b8',
+                        fontSize: '0.75rem', color: 'var(--color-text-muted)',
                       }}>
                         {p.category}
                       </div>
@@ -405,10 +406,10 @@ export default function Home() {
                           </span>
                         ))}
                       </div>
-                      <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.75rem', fontSize: '1rem' }}>{p.name}</h3>
+                      <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.75rem', fontSize: '1rem' }}>{p.name}</h3>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#10b981' }}>₹{(p.price * 25).toFixed(2)}</span>
-                        <span style={{ fontSize: '0.8rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted-dark)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                           🌱 Eco certified
                         </span>
                       </div>
@@ -444,7 +445,7 @@ export default function Home() {
                 <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '1rem' }}>
                   {[...Array(rating)].map((_, i) => <span key={i} style={{ color: '#f59e0b', fontSize: '1rem' }}>★</span>)}
                 </div>
-                <p style={{ color: '#94a3b8', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1.25rem', fontStyle: 'italic' }}>
+                <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: '1.25rem', fontStyle: 'italic' }}>
                   "{text}"
                 </p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -456,8 +457,8 @@ export default function Home() {
                     {avatar}
                   </div>
                   <div>
-                    <div style={{ fontWeight: 700, color: '#f1f5f9', fontSize: '0.9rem' }}>{name}</div>
-                    <div style={{ fontSize: '0.78rem', color: '#64748b' }}>{role}</div>
+                    <div style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '0.9rem' }}>{name}</div>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted-dark)' }}>{role}</div>
                   </div>
                 </div>
               </div>

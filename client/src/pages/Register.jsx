@@ -32,7 +32,7 @@ export default function Register() {
       background: `
         radial-gradient(ellipse at 75% 30%, rgba(16,185,129,0.12) 0%, transparent 55%),
         radial-gradient(ellipse at 20% 80%, rgba(52,211,153,0.08) 0%, transparent 50%),
-        #0f172a
+        var(--color-eco-bg)
       `,
     }}>
       <style>{`
@@ -48,12 +48,12 @@ export default function Register() {
             <span style={{ fontSize: '2.2rem' }}>🌿</span>
             <span style={{ fontWeight: 900, fontSize: '1.6rem', color: '#10b981' }}>EcoTrack</span>
           </Link>
-          <p style={{ color: '#64748b', fontSize: '0.9rem', marginTop: '0.5rem' }}>Join the sustainability movement</p>
+          <p style={{ color: 'var(--color-text-muted-dark)', fontSize: '0.9rem', marginTop: '0.5rem' }}>Join the sustainability movement</p>
         </div>
 
         {/* Card */}
         <div style={{
-          background: 'rgba(30,41,59,0.8)', backdropFilter: 'blur(16px)',
+          background: 'rgba(var(--color-eco-card-rgb),0.8)', backdropFilter: 'blur(16px)',
           border: '1px solid rgba(51,65,85,0.6)', borderRadius: '1.5rem',
           padding: '2.25rem',
           boxShadow: '0 25px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05)',
@@ -61,7 +61,7 @@ export default function Register() {
 
           {/* Role Selector */}
           <div style={{ marginBottom: '1.75rem' }}>
-            <p style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
+            <p style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted-dark)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
               I am joining as a…
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
@@ -76,19 +76,19 @@ export default function Register() {
                   style={{
                     padding: '1rem', borderRadius: '0.85rem',
                     border: `2px solid ${role === key ? '#10b981' : 'rgba(51,65,85,0.5)'}`,
-                    background: role === key ? 'rgba(16,185,129,0.1)' : 'rgba(15,23,42,0.4)',
+                    background: role === key ? 'rgba(16,185,129,0.1)' : 'rgba(var(--color-eco-bg-rgb),0.4)',
                     cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s',
                   }}
                 >
                   <div style={{ fontSize: '1.6rem', marginBottom: '0.35rem' }}>{icon}</div>
-                  <div style={{ fontWeight: 700, color: role === key ? '#34d399' : '#94a3b8', fontSize: '0.9rem' }}>{label}</div>
-                  <div style={{ fontSize: '0.75rem', color: '#475569', marginTop: '0.15rem', lineHeight: 1.4 }}>{desc}</div>
+                  <div style={{ fontWeight: 700, color: role === key ? '#34d399' : 'var(--color-text-muted)', fontSize: '0.9rem' }}>{label}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--color-border-light)', marginTop: '0.15rem', lineHeight: 1.4 }}>{desc}</div>
                 </button>
               ))}
             </div>
           </div>
 
-          <h2 style={{ fontWeight: 800, color: '#f1f5f9', fontSize: '1.25rem', marginBottom: '1.5rem' }}>
+          <h2 style={{ fontWeight: 800, color: 'var(--color-text-main)', fontSize: '1.25rem', marginBottom: '1.5rem' }}>
             Create Your {role === 'customer' ? 'Customer' : 'Merchant'} Account
           </h2>
 
@@ -97,7 +97,7 @@ export default function Register() {
 
               {/* Full Name */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Full Name
                 </label>
                 <input
@@ -106,14 +106,14 @@ export default function Register() {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="Your full name"
-                  style={{ width: '100%', background: 'rgba(15,23,42,0.8)', border: '1.5px solid #334155', borderRadius: '0.6rem', color: '#e2e8f0', padding: '0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
+                  style={{ width: '100%', background: 'rgba(var(--color-eco-bg-rgb),0.8)', border: '1.5px solid var(--color-border)', borderRadius: '0.6rem', color: 'var(--color-text-body)', padding: '0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
                 />
               </div>
 
               {/* Store Name — merchants only */}
               {role === 'merchant' && (
                 <div style={{ animation: 'slideUp 0.3s ease-out' }}>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                     🏪 Store / Brand Name
                   </label>
                   <input
@@ -122,14 +122,14 @@ export default function Register() {
                     value={form.storeName}
                     onChange={handleChange}
                     placeholder="e.g. Green Leaf Co."
-                    style={{ width: '100%', background: 'rgba(15,23,42,0.8)', border: '1.5px solid #334155', borderRadius: '0.6rem', color: '#e2e8f0', padding: '0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
+                    style={{ width: '100%', background: 'rgba(var(--color-eco-bg-rgb),0.8)', border: '1.5px solid var(--color-border)', borderRadius: '0.6rem', color: 'var(--color-text-body)', padding: '0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
                   />
                 </div>
               )}
 
               {/* Email */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Email Address
                 </label>
                 <input
@@ -138,13 +138,13 @@ export default function Register() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="you@example.com"
-                  style={{ width: '100%', background: 'rgba(15,23,42,0.8)', border: '1.5px solid #334155', borderRadius: '0.6rem', color: '#e2e8f0', padding: '0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
+                  style={{ width: '100%', background: 'rgba(var(--color-eco-bg-rgb),0.8)', border: '1.5px solid var(--color-border)', borderRadius: '0.6rem', color: 'var(--color-text-body)', padding: '0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#94a3b8', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Password
                 </label>
                 <div style={{ position: 'relative' }}>
@@ -154,9 +154,9 @@ export default function Register() {
                     value={form.password}
                     onChange={handleChange}
                     placeholder="Min. 6 characters"
-                    style={{ width: '100%', background: 'rgba(15,23,42,0.8)', border: '1.5px solid #334155', borderRadius: '0.6rem', color: '#e2e8f0', padding: '0.75rem 2.75rem 0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
+                    style={{ width: '100%', background: 'rgba(var(--color-eco-bg-rgb),0.8)', border: '1.5px solid var(--color-border)', borderRadius: '0.6rem', color: 'var(--color-text-body)', padding: '0.75rem 2.75rem 0.75rem 1rem', fontSize: '0.95rem', transition: 'border-color 0.2s, box-shadow 0.2s', boxSizing: 'border-box' }}
                   />
-                  <button type="button" onClick={() => setShowPass(s => !s)} style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: '#64748b', fontSize: '1rem' }}>
+                  <button type="button" onClick={() => setShowPass(s => !s)} style={{ position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--color-text-muted-dark)', fontSize: '1rem' }}>
                     {showPass ? '🙈' : '👁️'}
                   </button>
                 </div>
@@ -165,7 +165,7 @@ export default function Register() {
                   <div style={{ marginTop: '0.5rem' }}>
                     <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '0.25rem' }}>
                       {[1, 2, 3].map(i => (
-                        <div key={i} style={{ flex: 1, height: 3, borderRadius: 99, background: i <= strength ? strengthColors[strength - 1] : '#1e293b', transition: 'background 0.3s' }} />
+                        <div key={i} style={{ flex: 1, height: 3, borderRadius: 99, background: i <= strength ? strengthColors[strength - 1] : 'var(--color-eco-card)', transition: 'background 0.3s' }} />
                       ))}
                     </div>
                     <p style={{ fontSize: '0.73rem', color: strengthColors[strength - 1] }}>
@@ -184,7 +184,7 @@ export default function Register() {
             )}
 
             {/* Benefits reminder */}
-            <div style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.12)', borderRadius: '0.6rem', padding: '0.75rem 1rem', margin: '1.25rem 0', fontSize: '0.8rem', color: '#64748b', lineHeight: 1.6 }}>
+            <div style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.12)', borderRadius: '0.6rem', padding: '0.75rem 1rem', margin: '1.25rem 0', fontSize: '0.8rem', color: 'var(--color-text-muted-dark)', lineHeight: 1.6 }}>
               {role === 'customer'
                 ? '🌱 Free account · Earn 100 welcome points · Personalised recommendations · Order history'
                 : '🏪 Free to list · Dashboard analytics · Multi-image products · Direct customer reach'}
@@ -207,13 +207,13 @@ export default function Register() {
             </button>
           </form>
 
-          <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: '#475569' }}>
+          <p style={{ textAlign: 'center', marginTop: '1.5rem', fontSize: '0.875rem', color: 'var(--color-border-light)' }}>
             Already have an account?{' '}
             <Link to="/login" style={{ color: '#10b981', fontWeight: 600, textDecoration: 'none' }}>Sign in →</Link>
           </p>
         </div>
 
-        <p style={{ textAlign: 'center', color: '#334155', fontSize: '0.78rem', marginTop: '1.5rem' }}>
+        <p style={{ textAlign: 'center', color: 'var(--color-border)', fontSize: '0.78rem', marginTop: '1.5rem' }}>
           By registering you agree to our Terms of Service & Privacy Policy
         </p>
       </div>

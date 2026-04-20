@@ -45,8 +45,8 @@ export default function Products() {
               onClick={() => setActiveCategory(cat)}
               style={{
                 padding: '0.45rem 1rem', borderRadius: '2rem', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.85rem',
-                background: activeCategory === cat ? '#10b981' : '#1e293b',
-                color: activeCategory === cat ? '#fff' : '#94a3b8',
+                background: activeCategory === cat ? '#10b981' : 'var(--color-eco-card)',
+                color: activeCategory === cat ? '#fff' : 'var(--color-text-muted)',
                 transition: 'all 0.2s',
               }}>
               {cat}
@@ -60,23 +60,24 @@ export default function Products() {
         <div style={{ textAlign: 'center', color: '#10b981', padding: '4rem', fontSize: '1.1rem' }}>🌱 Loading eco products...</div>
       ) : (
         <>
-          <p style={{ color: '#64748b', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{filtered.length} product{filtered.length !== 1 ? 's' : ''} found</p>
+          <p style={{ color: 'var(--color-text-muted-dark)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{filtered.length} product{filtered.length !== 1 ? 's' : ''} found</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.5rem' }}>
             {filtered.map(p => (
               <div key={p.id} className="card-hover glass" style={{ borderRadius: '1rem', overflow: 'hidden' }}>
-                <div style={{ height: '120px', background: 'rgba(16,185,129,0.05)', position: 'relative' }}>
-                  <div style={{
-                    position: 'absolute', top: '0.75rem', right: '0.75rem',
-                    background: p.score >= 90 ? '#10b981' : '#f59e0b',
-                    borderRadius: '0.5rem', padding: '0.25rem 0.6rem', fontSize: '0.8rem', fontWeight: 700, color: '#fff',
-                  }}>
-                    ♻ {p.score}/100
+                <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', height: '100%' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {p.category}
+                    </span>
+                     <span style={{
+                        background: p.score >= 90 ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.1)',
+                        color: p.score >= 90 ? '#10b981' : '#f59e0b',
+                        border: p.score >= 90 ? '1px solid rgba(16,185,129,0.2)' : '1px solid rgba(245,158,11,0.2)',
+                        padding: '0.2rem 0.6rem', borderRadius: '1rem', fontSize: '0.75rem', fontWeight: 800
+                     }}>
+                        ♻ SCORE {p.score}
+                     </span>
                   </div>
-                  <div style={{ position: 'absolute', top: '0.75rem', left: '0.75rem', background: 'rgba(15,23,42,0.8)', borderRadius: '0.5rem', padding: '0.25rem 0.6rem', fontSize: '0.75rem', color: '#94a3b8' }}>
-                    {p.category}
-                  </div>
-                </div>
-                <div style={{ padding: '1.25rem' }}>
                   <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
                     {p.tags.map(t => (
                       <span key={t} style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '1rem', padding: '0.15rem 0.6rem', fontSize: '0.75rem', color: '#34d399' }}>
@@ -84,7 +85,7 @@ export default function Products() {
                       </span>
                     ))}
                   </div>
-                  <h3 style={{ fontWeight: 700, color: '#f1f5f9', marginBottom: '0.75rem', fontSize: '1.05rem' }}>{p.name}</h3>
+                  <h3 style={{ fontWeight: 700, color: 'var(--color-text-main)', marginBottom: '0.75rem', fontSize: '1.05rem' }}>{p.name}</h3>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: '1.2rem', fontWeight: 800, color: '#10b981' }}>₹{(p.price * 25).toFixed(2)}</span>
                     <Link to={`/products/${p.id}`} className="btn-eco" style={{ textDecoration: 'none', padding: '0.4rem 1rem', fontSize: '0.875rem' }}>
@@ -96,7 +97,7 @@ export default function Products() {
             ))}
           </div>
           {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '4rem', color: '#64748b' }}>
+            <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--color-text-muted-dark)' }}>
               <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🍃</div>
               <p>No products found. Try a different filter.</p>
             </div>

@@ -33,7 +33,7 @@ function AppRoutes() {
           <Route path="/gamification" element={<Gamification />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* Register removed */}
           <Route
             path="/merchant/dashboard"
             element={

@@ -54,7 +54,7 @@ function Message({ msg }) {
         borderRadius: isBot ? '1rem 1rem 1rem 0.2rem' : '1rem 1rem 0.2rem 1rem',
         padding: '0.65rem 0.9rem',
         fontSize: '0.875rem',
-        color: '#e2e8f0',
+        color: 'var(--color-text-body)',
         lineHeight: 1.55,
         whiteSpace: 'pre-wrap',
       }}>
@@ -188,7 +188,7 @@ export default function EcoChat() {
             width: 'min(380px, calc(100vw - 2rem))',
             height: 'min(560px, calc(100vh - 7rem))',
             display: 'flex', flexDirection: 'column',
-            background: 'rgba(15,23,42,0.92)',
+            background: 'rgba(var(--color-eco-bg-rgb),0.92)',
             backdropFilter: 'blur(20px)',
             border: '1px solid rgba(16,185,129,0.25)',
             borderRadius: '1.25rem',
@@ -214,7 +214,7 @@ export default function EcoChat() {
               🌿
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 700, color: '#f1f5f9', fontSize: '0.95rem' }}>EcoBot</div>
+              <div style={{ fontWeight: 700, color: 'var(--color-text-main)', fontSize: '0.95rem' }}>EcoBot</div>
               <div style={{ fontSize: '0.75rem', color: '#34d399', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', display: 'inline-block', animation: 'ecoBounce 2s ease-in-out infinite' }} />
                 Online · AI Sustainability Guide
@@ -225,7 +225,7 @@ export default function EcoChat() {
               style={{
                 background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: '50%', width: 28, height: 28, cursor: 'pointer',
-                color: '#94a3b8', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                color: 'var(--color-text-muted)', fontSize: '0.8rem', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 transition: 'all 0.2s',
               }}
               aria-label="Close chat"
@@ -282,7 +282,7 @@ export default function EcoChat() {
                     background: 'rgba(16,185,129,0.08)',
                     border: '1px solid rgba(16,185,129,0.2)',
                     borderRadius: '2rem', padding: '0.3rem 0.75rem',
-                    color: '#94a3b8', fontSize: '0.77rem', cursor: 'pointer',
+                    color: 'var(--color-text-muted)', fontSize: '0.77rem', cursor: 'pointer',
                     transition: 'all 0.2s', fontWeight: 500,
                   }}
                 >
@@ -308,10 +308,10 @@ export default function EcoChat() {
               rows={1}
               style={{
                 flex: 1, resize: 'none',
-                background: 'rgba(30,41,59,0.8)',
-                border: '1px solid #334155',
+                background: 'rgba(var(--color-eco-card-rgb),0.8)',
+                border: '1px solid var(--color-border)',
                 borderRadius: '0.75rem',
-                color: '#e2e8f0', padding: '0.6rem 0.85rem',
+                color: 'var(--color-text-body)', padding: '0.6rem 0.85rem',
                 fontSize: '0.875rem', lineHeight: 1.5,
                 fontFamily: 'inherit',
                 maxHeight: 120, overflowY: 'auto',
